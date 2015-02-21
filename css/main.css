@@ -1,0 +1,41 @@
+body {
+    background-color: #c0d5d0;
+}
+
+div.container {
+    margin-top: 50px;
+    background-color: #ffffff;
+}
+
+td.selected {
+    background-color: #99aabb;
+}
+
+td.highlighted {
+    background-color: #ddbbcc;
+}
+
+p.question {
+    font-style: italic;
+    margin-top: 10px;
+}
+
+span.score {
+    font-size: 150%;
+    font-weight: bold;
+    color: #257625;
+}
+
+span.gameover {
+    font-size: 250%;
+    font-weight: bold;
+    color: #c03333;
+}
+
+button.red {
+    background-color: #ffbbbb;
+}
+
+button.green {
+    background-color: #bbffbb;
+}

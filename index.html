@@ -1,0 +1,105 @@
+<html>
+<head>
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/angular.1.2.26.min.js"></script>
+<script src="js/ui-bootstrap-tpls-0.12.1.min.js"></script>
+<script src="js/ng-lodash.min.js"></script>
+<script src="js/idleccg.js"></script>
+<link rel="stylesheet" href="css/idleccg.css">
+
+</head>
+<body ng-app="cardGameApp" ng-controller="gameCtrl" ng-keydown="keyPressed($event)">
+
+<div class="container" >
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Overview
+                </div>
+                <div class="panel-body">
+                    <p>time since start: {{ gameData.timeSinceStart }}</p>
+                    <p>Gold: {{ gold }}</p>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Shop
+                </div>
+                <div class="panel-body">
+                    Booster class 1<br>
+                    Booster class 2<br>
+                    Booster class 3<br>
+                    Booster class 4<br>
+                    Booster class 5<br>
+                    Booster class 6<br>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Game
+                </div>
+                <div class="panel-body">
+
+                    <div class="col-sm-12">
+                        <div class="col-sm-2">
+                            <progressbar max="opponent.health.max" value="opponent.health.current">
+                            </progressbar>
+                        </div>
+                        <div class="col-sm-2">
+                            Opponent ({{ opponent.deck.power }})
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div ng-repeat="card in opponent.deck.cards" class="col-sm-1 panel panel-primary card">
+                            {{ card.power }}
+                        </div>
+                    </div>
+                    <div class="col-sm-12"><br>
+                    </div>
+                    <div class="col-sm-12">
+                        <div ng-repeat="card in player.deck.cards" class="col-sm-1 panel panel-primary card">
+                            {{ card.power }}
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-2">
+                            <progressbar max="player.health.max" value="player.health.current">
+                            </progressbar>
+                        </div>
+                        <div class="col-sm-2">
+                            Player ({{ player.deck.power }})
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Collection
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-12">
+                        <div ng-repeat="card in player.collection.cards" class="col-sm-1 panel panel-primary card">
+                            {{ card.power }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+</body>
+</html>
