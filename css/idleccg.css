@@ -10,6 +10,27 @@ div.container {
 .card {
     padding-top: 20px;
     padding-bottom: 20px;
+    font-weight: bold;
+    font-size: 120%;
 }
 
+div.card-water {
+  background-color: #4682B4;
+  color: #fff;
+}
+div.card-air {
+  background-color: #9e9e9e;
+  color: #fff;
+}
+div.card-earth {
+  background-color: #32CD32;
+  color: #fff;
+}
+div.card-fire {
+  background-color: #FF6347;
+  color: #fff;
+}
 
+div.card-dominated {
+  opacity: 0.3;
+}

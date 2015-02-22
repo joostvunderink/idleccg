@@ -53,36 +53,74 @@ function buy($scope, name) {
   }
 }
 
+function Element(name) {
+  this.name     = name;
+  this.cssClass = 'card-' + name;
+  this.dominatedElement = null;
+  this.dominates    = function(otherElement) {
+    return otherElement === this.dominatedElement;
+  }
+}
+
+var WATER = new Element('water');
+var FIRE  = new Element('fire');
+var EARTH = new Element('earth');
+var AIR   = new Element('air');
+
+WATER.dominatedElement = FIRE;
+FIRE.dominatedElement  = EARTH;
+EARTH.dominatedElement = AIR;
+AIR.dominatedElement   = WATER;
+
+var ELEMENTS = [WATER, FIRE, EARTH, AIR];
+var ELEMENT_BY_NAME = {
+  water: WATER,
+  air: AIR,
+  earth: EARTH,
+  fire: FIRE,
+};
+
+var NONE = new Element('none');
+NONE.dominatedElement = 'does-not-dominate';
+
+var _;
+
 cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($scope, $interval, lodash) {
-  console.log(lodash);
+  _ = lodash;
   $scope.player = {
     health: {
-      max: 12,
-      current: 12,
+      max: 20,
+      current: 20,
     },
     deck: {
       cards: [
         {
-          power: 5
+          power: 5,
+          element: WATER,
         },
         {
-          power: 8
+          power: 8,
+          element: FIRE,
         },
         {
-          power: 1
+          power: 1,
+          element: WATER,
         },
       ]
     },
     collection: {
       cards: [
         {
-          power: 87
+          power: 6,
+          element: AIR,
         },
         {
-          power: 89
+          power: 3,
+          element: EARTH,
         },
         {
-          power: 143
+          power: 4,
+          element: EARTH
         },
       ]
     }
@@ -90,27 +128,18 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
   $scope.opponent = {
     health: {
-      max: 8,
-      current: 8,
+      max: 15,
+      current: 15,
     },
     deck: {
-      cards: [
-        {
-          power: 4
-        },
-        {
-          power: 2
-        },
-        {
-          power: 7
-        },
-      ]
     }
   };
 
+  giveOpponentRandomDeck($scope, 3);
+
   $scope.gold = 0;
-  $scope.player.deck.power   = $scope.player.deck.cards.reduce(function(a, b) { return { power: a.power + b.power }; } , {power: 0}).power;
-  $scope.opponent.deck.power = $scope.opponent.deck.cards.reduce(function(a, b) { return { power: a.power + b.power }; } , {power: 0}).power;
+
+  calculateDeckPowers($scope)
 
   $scope.gameData = {
     startTime         : new Date().getTime(),
@@ -152,7 +181,7 @@ function updateStatus($scope) {
 
 
 function processGameTurn($scope) {
-  var playerFactor = $scope.player.deck.power / ($scope.player.deck.power + $scope.opponent.deck.power);
+  var playerFactor = $scope.player.deck.adjustedPower / ($scope.player.deck.adjustedPower + $scope.opponent.deck.adjustedPower);
   var randomNumber = Math.random();
 
   if (randomNumber <= playerFactor) {
@@ -184,5 +213,88 @@ function resetGame($scope) {
   console.log("resetting game");
   $scope.player.health.current = $scope.player.health.max;
   $scope.opponent.health.current = $scope.opponent.health.max;
+  giveOpponentRandomDeck($scope, 3);
 }
 
+function getPrimaryElement(cards) {
+  var elementMap = _.countBy(cards, function(card) {
+    return card.element.name;
+  });
+
+  var primaryElement;
+  var primaryElementNumCards = 0;
+
+  for (var key in elementMap) {
+    if (elementMap[key] > primaryElementNumCards) {
+      primaryElementNumCards = elementMap[key];
+      primaryElement = key;
+    }
+  }
+
+  // DIRTY HACK!
+  if (primaryElementNumCards === 1) {
+    return NONE;
+  }
+
+  return ELEMENT_BY_NAME[primaryElement];
+}
+
+function calculateAdjustedPower(cards, opposingPrimaryElement) {
+  cards.forEach(function(card) {
+    if (opposingPrimaryElement.dominates(card.element)) {
+      card.adjustedPower = parseInt(card.power / 2);
+      if (card.adjustedPower < card.power) {
+        card.dominatedClass = 'card-dominated';
+      }
+    }
+    else {
+      card.adjustedPower = card.power;
+      card.dominatedClass = '';
+    }
+  });
+}
+
+function calculateDeckAdjustedPower(cards) {
+  return cards.reduce(function(a, b) {
+    return { adjustedPower: a.adjustedPower + b.adjustedPower }; 
+  } , {adjustedPower: 0})
+    .adjustedPower;
+}
+
+function calculateDeckPower(cards) {
+  return cards.reduce(function(a, b) {
+    return { power: a.power + b.power }; 
+  } , {power: 0})
+    .power;
+}
+
+function calculateDeckPowers($scope) {
+  $scope.player.deck.primaryElement   = getPrimaryElement($scope.player.deck.cards);
+  $scope.opponent.deck.primaryElement = getPrimaryElement($scope.opponent.deck.cards);
+
+  calculateAdjustedPower($scope.player.deck.cards, $scope.opponent.deck.primaryElement);
+  calculateAdjustedPower($scope.opponent.deck.cards, $scope.player.deck.primaryElement);
+
+  $scope.player.deck.adjustedPower   = calculateDeckAdjustedPower($scope.player.deck.cards);
+  $scope.opponent.deck.adjustedPower = calculateDeckAdjustedPower($scope.opponent.deck.cards);
+  $scope.player.deck.power           = calculateDeckPower($scope.player.deck.cards);
+  $scope.opponent.deck.power         = calculateDeckPower($scope.opponent.deck.cards);
+}
+
+function getRandomElement($scope) {
+  var index = parseInt(Math.random() * 4);
+  return ELEMENTS[index];
+}
+
+function giveOpponentRandomDeck($scope, numCards) {
+  $scope.opponent.deck.cards = [];
+
+  for (var i = 0; i < numCards; i++) {
+    $scope.opponent.deck.cards.push({
+      power: parseInt(Math.random() * 6) + 2,
+      element: getRandomElement()
+    });
+  }
+
+  calculateDeckPowers($scope);
+}

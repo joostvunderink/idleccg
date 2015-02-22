@@ -54,19 +54,21 @@
                             <progressbar max="opponent.health.max" value="opponent.health.current">
                             </progressbar>
                         </div>
-                        <div class="col-sm-2">
-                            Opponent ({{ opponent.deck.power }})
+                        <div class="col-sm-7">
+                            Opponent Health: {{ opponent.health.current }}. Power: ({{ opponent.deck.power }} -> {{ opponent.deck.adjustedPower }})
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <div ng-repeat="card in opponent.deck.cards" class="col-sm-1 panel panel-primary card">
+                        <div ng-repeat="card in opponent.deck.cards" 
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass">
                             {{ card.power }}
                         </div>
                     </div>
                     <div class="col-sm-12"><br>
                     </div>
                     <div class="col-sm-12">
-                        <div ng-repeat="card in player.deck.cards" class="col-sm-1 panel panel-primary card">
+                        <div ng-repeat="card in player.deck.cards" 
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass">
                             {{ card.power }}
                         </div>
                     </div>
@@ -75,8 +77,8 @@
                             <progressbar max="player.health.max" value="player.health.current">
                             </progressbar>
                         </div>
-                        <div class="col-sm-2">
-                            Player ({{ player.deck.power }})
+                        <div class="col-sm-7">
+                            Player Health: {{ player.health.current }}. Power ({{ player.deck.power }} -> {{ player.deck.adjustedPower }})
                         </div>
                     </div>
                 </div>
@@ -87,7 +89,8 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-sm-12">
-                        <div ng-repeat="card in player.collection.cards" class="col-sm-1 panel panel-primary card">
+                        <div ng-repeat="card in player.collection.cards" 
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass">
                             {{ card.power }}
                         </div>
                     </div>
