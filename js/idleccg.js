@@ -95,14 +95,17 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     deck: {
       cards: [
         {
+          id: 1,
           power: 5,
           element: WATER,
         },
         {
+          id: 2,
           power: 8,
           element: FIRE,
         },
         {
+          id: 3,
           power: 1,
           element: WATER,
         },
@@ -111,16 +114,21 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     collection: {
       cards: [
         {
+          id: 4,
           power: 6,
           element: AIR,
         },
         {
+          id: 5,
           power: 3,
           element: EARTH,
         },
         {
+          id: 6,
           power: 4,
-          element: EARTH
+          element: EARTH,
+          selected: true,
+          selectedClass: 'card-selected'
         },
       ]
     }
@@ -158,10 +166,15 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
   $interval(function() { updateStatus($scope) }, 378);
 
-  $scope.click = function() {
-    $scope.gameData.score += $scope.gameData.scorePerClick;
+  $scope.selectCardInCollection = function(card) {
+    $scope.player.collection.cards.forEach(function(c) {
+      c.selected = false;
+      c.selectedClass = '';
+    })
+    console.log(card);
+    card.selected = true;
+    card.selectedClass = 'card-selected';
   };
-  $scope.buy = function(item) { return buy($scope, item) };
 
   $scope.objectsToBuy = objectsToBuy;
   calculateSpS($scope);

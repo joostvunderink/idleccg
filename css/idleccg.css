@@ -12,6 +12,8 @@ div.container {
     padding-bottom: 20px;
     font-weight: bold;
     font-size: 120%;
+    border-width: 3px;
+    margin-right: 3px;
 }
 
 div.card-water {
@@ -33,4 +35,8 @@ div.card-fire {
 
 div.card-dominated {
   opacity: 0.3;
+}
+
+div.card-selected {
+  border-color: red;
 }

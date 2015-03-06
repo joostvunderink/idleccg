@@ -90,7 +90,8 @@
                 <div class="panel-body">
                     <div class="col-sm-12">
                         <div ng-repeat="card in player.collection.cards" 
-                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass">
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.selectedClass"
+                             ng-click="selectCardInCollection(card)">
                             {{ card.power }}
                         </div>
                     </div>
