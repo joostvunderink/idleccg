@@ -61,10 +61,46 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     $scope.player.collection.cards.forEach(function(c) {
       c.selected = false;
       c.selectedClass = '';
-    })
-    console.log(card);
+    });
     card.selected = true;
     card.selectedClass = 'card-selected';
+    $scope.cardSelectedInCollection = card;
+    if ($scope.cardSelectedInDeck && $scope.cardSelectedInCollection) {
+      $scope.swapCardBetweenDeckAndCollection($scope.cardSelectedInDeck, $scope.cardSelectedInCollection);      
+    }
+  };
+
+  $scope.selectCardInDeck = function(card) {
+    $scope.player.deck.cards.forEach(function(c) {
+      c.selected = false;
+      c.selectedClass = '';
+    });
+    card.selected = true;
+    card.selectedClass = 'card-selected';
+    $scope.cardSelectedInDeck = card;
+    if ($scope.cardSelectedInDeck && $scope.cardSelectedInCollection) {
+      $scope.swapCardBetweenDeckAndCollection($scope.cardSelectedInDeck, $scope.cardSelectedInCollection);      
+    }
+  };
+
+  $scope.swapCardBetweenDeckAndCollection = function(cardInDeck, cardInCollection) {
+    $scope.player.deck.removeCard(cardInDeck);
+    $scope.player.collection.removeCard(cardInCollection);
+
+    $scope.player.deck.addCard(cardInCollection);
+    $scope.player.collection.addCard(cardInDeck);
+
+    $scope.player.deck.cards.forEach(function(c) {
+      c.selected = false;
+      c.selectedClass = '';
+    });
+    $scope.player.collection.cards.forEach(function(c) {
+      c.selected = false;
+      c.selectedClass = '';
+    });
+    $scope.cardSelectedInDeck = null;
+    $scope.cardSelectedInCollection = null;
+    calculatePowers($scope)
   };
 }]);
 
@@ -111,7 +147,6 @@ function opponentWins($scope) {
 }
 
 function resetGame($scope) {
-  console.log("resetting game");
   $scope.player.health.current = $scope.player.health.max;
   $scope.opponent.health.current = $scope.opponent.health.max;
   giveOpponentRandomDeck($scope, 3);

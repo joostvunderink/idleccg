@@ -12,6 +12,12 @@ function Deck() {
     this.getPrimaryElement();
   };
 
+  self.removeCard = function(card) {
+    _.remove(this.cards, { id: card.id });
+    this.calculateTotalPower();
+    this.getPrimaryElement();
+  };
+
   self.calculateTotalPower = function() {
     var totalPower = 0;
     self.cards.forEach(function(card) {

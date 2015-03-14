@@ -7,6 +7,10 @@ function Collection() {
   self.addCard = function(card) {
     this.cards.push(card);
   };
+
+  self.removeCard = function(card) {
+    _.remove(this.cards, { id: card.id });
+  };
 };
 
 // We use an IIFE here, to keep getNextCollectionId out of the global scope.

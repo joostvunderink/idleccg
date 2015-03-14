@@ -73,7 +73,8 @@
                     </div>
                     <div class="col-sm-12">
                         <div ng-repeat="card in player.deck.cards" 
-                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass">
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass"
+                             ng-click="selectCardInDeck(card)">
                             {{ card.power }}
                         </div>
                     </div>
