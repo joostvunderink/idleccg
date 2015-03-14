@@ -8,81 +8,6 @@ function logDebug(msg) {
   }
 }
 
-var objectsToBuy = [
-{
-  name: 'small',
-  initialCost: 25,
-  currentCost: 25,
-  increaseSpS: 1,
-},
-{
-  name: 'medium',
-  initialCost: 200,
-  currentCost: 200,
-  increaseSpS: 5,
-},
-{
-  name: 'large',
-  initialCost: 800,
-  currentCost: 800,
-  increaseSpS: 12,
-}
-];
-
-
-function calculateSpS($scope) {
-  var speed = 0; // base speed
-  for (var i = 0; i < objectsToBuy.length; i++) {
-    var o = objectsToBuy[i];
-    var name = o.name;
-    var num = $scope.gameData.boughtObjects[name];
-    speed = speed + num * o.increaseSpS;
-  }
-  $scope.gameData.scorePerSecond = speed;
-}
-
-function buy($scope, name) {
-  for (var i = 0; i < objectsToBuy.length; i++) {
-    var o = objectsToBuy[i];
-    if (o.name === name) {
-      $scope.gameData.boughtObjects[name]++;
-      $scope.gameData.score -= o.currentCost;
-      o.currentCost = parseInt(o.currentCost * 1.2);
-      calculateSpS($scope);
-    }
-  }
-}
-
-function Element(name) {
-  this.name     = name;
-  this.cssClass = 'card-' + name;
-  this.dominatedElement = null;
-  this.dominates    = function(otherElement) {
-    return otherElement === this.dominatedElement;
-  }
-}
-
-var WATER = new Element('water');
-var FIRE  = new Element('fire');
-var EARTH = new Element('earth');
-var AIR   = new Element('air');
-
-WATER.dominatedElement = FIRE;
-FIRE.dominatedElement  = EARTH;
-EARTH.dominatedElement = AIR;
-AIR.dominatedElement   = WATER;
-
-var ELEMENTS = [WATER, FIRE, EARTH, AIR];
-var ELEMENT_BY_NAME = {
-  water: WATER,
-  air: AIR,
-  earth: EARTH,
-  fire: FIRE,
-};
-
-var NONE = new Element('none');
-NONE.dominatedElement = 'does-not-dominate';
-
 var _;
 
 cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($scope, $interval, lodash) {
@@ -175,9 +100,6 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     card.selected = true;
     card.selectedClass = 'card-selected';
   };
-
-  $scope.objectsToBuy = objectsToBuy;
-  calculateSpS($scope);
 }]);
 
 function updateStatus($scope) {
