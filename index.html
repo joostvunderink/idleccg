@@ -13,6 +13,7 @@
 <script src="js/element.js"></script>
 <script src="js/card.js"></script>
 <script src="js/deck.js"></script>
+<script src="js/collection.js"></script>
 <script src="js/idleccg.js"></script>
 <link rel="stylesheet" href="css/idleccg.css">
 
@@ -49,7 +50,7 @@
         <div class="col-sm-9">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Game
+                    Game - Level {{ currentLocation.level }} - Opponent {{ opponent.number }}
                 </div>
                 <div class="panel-body">
 
@@ -59,7 +60,7 @@
                             </progressbar>
                         </div>
                         <div class="col-sm-7">
-                            Opponent Health: {{ opponent.health.current }}. Power: ({{ opponent.deck.power }} -> {{ opponent.deck.adjustedPower }})
+                            Opponent Health: {{ opponent.health.current }}. Power: ({{ opponent.deck.totalPower }} -> {{ opponent.deck.adjustedPower }})
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -82,7 +83,7 @@
                             </progressbar>
                         </div>
                         <div class="col-sm-7">
-                            Player Health: {{ player.health.current }}. Power ({{ player.deck.power }} -> {{ player.deck.adjustedPower }})
+                            Player Health: {{ player.health.current }}. Power ({{ player.deck.totalPower }} -> {{ player.deck.adjustedPower }})
                         </div>
                     </div>
                 </div>

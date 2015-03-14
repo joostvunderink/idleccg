@@ -17,28 +17,8 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
       max: 20,
       current: 20,
     },
-    deck: getInitialPlayerDeck(),
-    collection: {
-      cards: [
-        {
-          id: 4,
-          power: 6,
-          element: AIR,
-        },
-        {
-          id: 5,
-          power: 3,
-          element: EARTH,
-        },
-        {
-          id: 6,
-          power: 4,
-          element: EARTH,
-          selected: true,
-          selectedClass: 'card-selected'
-        },
-      ]
-    }
+    deck: createInitialPlayerDeck(),
+    collection: createInitialPlayerCollection(),
   };
 
   $scope.opponent = {
@@ -47,14 +27,14 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
       current: 15,
     },
     deck: {
-    }
+    },
+    number: 1
   };
 
   giveOpponentRandomDeck($scope, 3);
+  calculatePowers($scope);
 
   $scope.gold = 0;
-
-  calculateDeckPowers($scope)
 
   $scope.gameData = {
     startTime         : new Date().getTime(),
@@ -69,6 +49,10 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
       medium: 0,
       large : 0,
     },
+  };
+
+  $scope.currentLocation = {
+    level: 1
   };
 
   $interval(function() { updateStatus($scope) }, 378);
@@ -131,87 +115,20 @@ function resetGame($scope) {
   $scope.player.health.current = $scope.player.health.max;
   $scope.opponent.health.current = $scope.opponent.health.max;
   giveOpponentRandomDeck($scope, 3);
+  calculatePowers($scope);
 }
 
-function getPrimaryElement(cards) {
-  var elementMap = _.countBy(cards, function(card) {
-    return card.element.name;
-  });
-
-  var primaryElement;
-  var primaryElementNumCards = 0;
-
-  for (var key in elementMap) {
-    if (elementMap[key] > primaryElementNumCards) {
-      primaryElementNumCards = elementMap[key];
-      primaryElement = key;
-    }
-  }
-
-  // DIRTY HACK!
-  if (primaryElementNumCards === 1) {
-    return NONE;
-  }
-
-  return ELEMENT_BY_NAME[primaryElement];
-}
-
-function calculateAdjustedPower(cards, opposingPrimaryElement) {
-  cards.forEach(function(card) {
-    if (opposingPrimaryElement.dominates(card.element)) {
-      card.adjustedPower = parseInt(card.power / 2);
-      if (card.adjustedPower < card.power) {
-        card.dominatedClass = 'card-dominated';
-      }
-    }
-    else {
-      card.adjustedPower = card.power;
-      card.dominatedClass = '';
-    }
-  });
-}
-
-function calculateDeckAdjustedPower(cards) {
-  return cards.reduce(function(a, b) {
-    return { adjustedPower: a.adjustedPower + b.adjustedPower }; 
-  } , {adjustedPower: 0})
-    .adjustedPower;
-}
-
-function calculateDeckPower(cards) {
-  return cards.reduce(function(a, b) {
-    return { power: a.power + b.power }; 
-  } , {power: 0})
-    .power;
-}
-
-function calculateDeckPowers($scope) {
-  $scope.player.deck.primaryElement   = getPrimaryElement($scope.player.deck.cards);
-  $scope.opponent.deck.primaryElement = getPrimaryElement($scope.opponent.deck.cards);
-
-  calculateAdjustedPower($scope.player.deck.cards, $scope.opponent.deck.primaryElement);
-  calculateAdjustedPower($scope.opponent.deck.cards, $scope.player.deck.primaryElement);
-
-  $scope.player.deck.adjustedPower   = calculateDeckAdjustedPower($scope.player.deck.cards);
-  $scope.opponent.deck.adjustedPower = calculateDeckAdjustedPower($scope.opponent.deck.cards);
-  $scope.player.deck.power           = calculateDeckPower($scope.player.deck.cards);
-  $scope.opponent.deck.power         = calculateDeckPower($scope.opponent.deck.cards);
-}
-
-function getRandomElement($scope) {
-  var index = parseInt(Math.random() * 4);
-  return ELEMENTS[index];
+function calculatePowers($scope) {
+  $scope.player.deck.getPrimaryElement();
+  $scope.opponent.deck.getPrimaryElement();
+  $scope.player.deck.calculateAdjustedPower($scope.opponent.deck.primaryElement);
+  $scope.opponent.deck.calculateAdjustedPower($scope.player.deck.primaryElement);
 }
 
 function giveOpponentRandomDeck($scope, numCards) {
-  $scope.opponent.deck.cards = [];
-
-  for (var i = 0; i < numCards; i++) {
-    $scope.opponent.deck.cards.push({
-      power: parseInt(Math.random() * 1) + 1,
-      element: getRandomElement()
-    });
-  }
-
-  calculateDeckPowers($scope);
+  $scope.opponent.deck = createOpponentDeck({
+    deckSize: numCards,
+    minPower: 0,
+    maxPower: 2
+  });
 }

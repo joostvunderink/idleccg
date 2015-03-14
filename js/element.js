@@ -7,28 +7,28 @@ function Element(name) {
   }
 }
 
-var WATER = new Element('water');
-var FIRE  = new Element('fire');
-var EARTH = new Element('earth');
-var AIR   = new Element('air');
-var NONE = new Element('none');
+var ELEMENT_WATER = new Element('water');
+var ELEMENT_FIRE  = new Element('fire');
+var ELEMENT_EARTH = new Element('earth');
+var ELEMENT_AIR   = new Element('air');
+var ELEMENT_NONE  = new Element('none');
 
-WATER.dominatedElement = FIRE;
-FIRE.dominatedElement  = EARTH;
-EARTH.dominatedElement = AIR;
-AIR.dominatedElement   = WATER;
-NONE.dominatedElement  = 'does-not-dominate';
+ELEMENT_WATER.dominatedElement = ELEMENT_FIRE;
+ELEMENT_FIRE.dominatedElement  = ELEMENT_EARTH;
+ELEMENT_EARTH.dominatedElement = ELEMENT_AIR;
+ELEMENT_AIR.dominatedElement   = ELEMENT_WATER;
+ELEMENT_NONE.dominatedElement  = 'does-not-dominate';
 
-var ELEMENTS = [WATER, FIRE, EARTH, AIR];
+var ELEMENTS = [ELEMENT_WATER, ELEMENT_FIRE, ELEMENT_EARTH, ELEMENT_AIR];
 var ELEMENT_BY_NAME = {
-  water: WATER,
-  air  : AIR,
-  earth: EARTH,
-  fire : FIRE,
+  water: ELEMENT_WATER,
+  air  : ELEMENT_AIR,
+  earth: ELEMENT_EARTH,
+  fire : ELEMENT_FIRE,
 };
 
 function getRandomElement() {
-  var index = Math.round(Math.random() * ELEMENTS.length);
+  var index = Math.floor(Math.random() * ELEMENTS.length);
   return ELEMENTS[index];
 }
 
