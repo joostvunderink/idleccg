@@ -17,25 +17,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
       max: 20,
       current: 20,
     },
-    deck: {
-      cards: [
-        {
-          id: 1,
-          power: 5,
-          element: WATER,
-        },
-        {
-          id: 2,
-          power: 8,
-          element: FIRE,
-        },
-        {
-          id: 3,
-          power: 1,
-          element: WATER,
-        },
-      ]
-    },
+    deck: getInitialPlayerDeck(),
     collection: {
       cards: [
         {
@@ -226,7 +208,7 @@ function giveOpponentRandomDeck($scope, numCards) {
 
   for (var i = 0; i < numCards; i++) {
     $scope.opponent.deck.cards.push({
-      power: parseInt(Math.random() * 6) + 2,
+      power: parseInt(Math.random() * 1) + 1,
       element: getRandomElement()
     });
   }
