@@ -46,6 +46,14 @@
                     Booster class 6<br>
                 </div>
             </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Log
+                </div>
+                <div class="panel-body">
+                    <p class="logline" ng-repeat="l in log track by $index">{{ l.time }} <em>{{ l.text }}</em></p>
+                </div>
+            </div>
         </div>
         <div class="col-sm-9">
             <div class="panel panel-primary">

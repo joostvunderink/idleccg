@@ -35,6 +35,8 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   calculatePowers($scope);
 
   $scope.gold = 0;
+  $scope.log = [];
+  $scope.maxLogLines = 10;
 
   $scope.gameData = {
     startTime         : new Date().getTime(),
@@ -56,6 +58,20 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   };
 
   $interval(function() { updateStatus($scope) }, 378);
+
+  $scope.addLogLine = function(text) {
+    var now = new Date();
+    var nowTime = now.toISOString().slice(11,19);
+    var logLine = {
+      text: text,
+      date: now,
+      time: nowTime
+    };
+    $scope.log.unshift(logLine);
+    if ($scope.log.length > $scope.maxLogLines) {
+      $scope.log.pop();
+    }
+  };
 
   $scope.selectCardInCollection = function(card) {
     $scope.player.collection.cards.forEach(function(c) {
@@ -138,7 +154,9 @@ function processGameTurn($scope) {
 }
 
 function playerWins($scope) {
-  $scope.gold += 1;
+  var amount = 1;
+  $scope.gold += amount;
+  $scope.addLogLine("Won " + amount + " gold.");
   resetGame($scope);
 }
 

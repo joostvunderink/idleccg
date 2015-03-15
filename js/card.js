@@ -36,7 +36,6 @@ function Card() {
     if (self.type === CARDTYPE_PLAY) {
       self.cssClass = self.element.cssClass;
     }
-    console.info("type=%s, cssClass=%s", self.type, self.cssClass);
   };
 };
 

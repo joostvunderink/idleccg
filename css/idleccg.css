@@ -46,3 +46,7 @@ div.card-dominated {
 div.card-selected {
   border-color: red;
 }
+
+.logline {
+  margin-bottom: 0px;
+}
