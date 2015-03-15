@@ -1,4 +1,5 @@
 var CARDTYPE_PLAY = 'play';
+var CARDTYPE_UPGRADE = 'upgrade';
 
 function Card() {
   var self = this;
@@ -7,6 +8,36 @@ function Card() {
   self.type    = CARDTYPE_PLAY;
   self.element = null;
   self.power   = 0;
+
+  self.setType = function(newType) {
+    self.type = newType;
+    self.updateDisplayProperties();
+  };
+
+  self.updateDisplayProperties = function() {
+    self.updateText();
+    self.updateCssClass();
+  };
+
+  self.updateText = function() {
+    if (self.type === CARDTYPE_UPGRADE) {
+      self.text = "+" + self.power;
+    }
+    if (self.type === CARDTYPE_PLAY) {
+      self.text = self.power;
+    }
+  };
+
+  self.updateCssClass = function() {
+    if (self.type === CARDTYPE_UPGRADE) {
+      self.cssClass = 'card-upgrade';
+    }
+
+    if (self.type === CARDTYPE_PLAY) {
+      self.cssClass = self.element.cssClass;
+    }
+    console.info("type=%s, cssClass=%s", self.type, self.cssClass);
+  };
 };
 
 // We use an IIFE here, to keep getNextCardId out of the global scope.
@@ -35,6 +66,11 @@ var CardFactory;
       card.power = data.power;
     }
 
+    if (data.type) {
+      card.type = data.type;
+    }
+
+    card.updateDisplayProperties();
     return card;
 };
 })();

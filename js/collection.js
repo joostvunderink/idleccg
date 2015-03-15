@@ -43,5 +43,11 @@ function createInitialPlayerCollection() {
     collection.addCard(card);
   });
 
+  var card = CardFactory({
+    type: CARDTYPE_UPGRADE,
+    power: 1,
+  });
+  collection.addCard(card);
+
   return collection;
 }

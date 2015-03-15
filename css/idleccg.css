@@ -21,7 +21,7 @@ div.card-water {
   color: #fff;
 }
 div.card-air {
-  background-color: #9e9e9e;
+  background-color: #04B4AE;
   color: #fff;
 }
 div.card-earth {
@@ -31,6 +31,12 @@ div.card-earth {
 div.card-fire {
   background-color: #FF6347;
   color: #fff;
+}
+
+div.card-upgrade {
+  background-color: #AEB404;
+  color: #fff;
+
 }
 
 div.card-dominated {

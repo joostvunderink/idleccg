@@ -66,16 +66,16 @@
                     <div class="col-sm-12">
                         <div ng-repeat="card in opponent.deck.cards" 
                              ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass">
-                            {{ card.power }}
+                            {{ card.text }}
                         </div>
                     </div>
                     <div class="col-sm-12"><br>
                     </div>
                     <div class="col-sm-12">
                         <div ng-repeat="card in player.deck.cards" 
-                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass"
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass"
                              ng-click="selectCardInDeck(card)">
-                            {{ card.power }}
+                            {{ card.text }}
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -96,9 +96,9 @@
                 <div class="panel-body">
                     <div class="col-sm-12">
                         <div ng-repeat="card in player.collection.cards" 
-                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.selectedClass"
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.selectedClass"
                              ng-click="selectCardInCollection(card)">
-                            {{ card.power }}
+                            {{ card.text }}
                         </div>
                     </div>
                 </div>

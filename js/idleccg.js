@@ -14,8 +14,8 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   _ = lodash;
   $scope.player = {
     health: {
-      max: 20,
-      current: 20,
+      max: 10,
+      current: 10,
     },
     deck: createInitialPlayerDeck(),
     collection: createInitialPlayerCollection(),
@@ -23,8 +23,8 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
   $scope.opponent = {
     health: {
-      max: 15,
-      current: 15,
+      max: 8,
+      current: 8,
     },
     deck: {
     },
@@ -138,7 +138,7 @@ function processGameTurn($scope) {
 }
 
 function playerWins($scope) {
-  $scope.gold += 10;
+  $scope.gold += 1;
   resetGame($scope);
 }
 
