@@ -82,7 +82,7 @@
                     <div class="col-sm-12">
                         <div ng-repeat="card in player.deck.cards" 
                              ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass"
-                             ng-click="selectCardInDeck(card)">
+                             ng-click="cardClicked(PAGE_SECTION_PLAYER_DECK, card)">
                             {{ card.text }}
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                     <div class="col-sm-12">
                         <div ng-repeat="card in player.collection.cards" 
                              ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.selectedClass"
-                             ng-click="selectCardInCollection(card)">
+                             ng-click="cardClicked(PAGE_SECTION_PLAYER_COLLECTION, card)">
                             {{ card.text }}
                         </div>
                     </div>
@@ -114,7 +114,6 @@
         </div>
 
     </div>
-
 
 
 </div>

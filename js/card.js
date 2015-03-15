@@ -14,6 +14,16 @@ function Card() {
     self.updateDisplayProperties();
   };
 
+  self.setSelected = function(value) {
+    self.selected = value;
+    self.selectedClass = value ? 'card-selected' : '';
+  };
+
+  self.applyUpgrade = function(upgradeCard) {
+    self.power += upgradeCard.power;
+    self.updateDisplayProperties();
+  };
+
   self.updateDisplayProperties = function() {
     self.updateText();
     self.updateCssClass();

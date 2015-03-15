@@ -1,6 +1,8 @@
 var cardGameApp = angular.module('cardGameApp',['ui.bootstrap', 'ngLodash']);
 
 var debug = false;
+var PAGE_SECTION_PLAYER_DECK = 'player-deck';
+var PAGE_SECTION_PLAYER_COLLECTION = 'player-collection';
 
 function logDebug(msg) {
   if (debug) {
@@ -12,6 +14,8 @@ var _;
 
 cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($scope, $interval, lodash) {
   _ = lodash;
+  $scope.PAGE_SECTION_PLAYER_DECK = PAGE_SECTION_PLAYER_DECK;
+  $scope.PAGE_SECTION_PLAYER_COLLECTION = PAGE_SECTION_PLAYER_COLLECTION;
   $scope.player = {
     health: {
       max: 10,
@@ -73,16 +77,61 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     }
   };
 
-  $scope.selectCardInCollection = function(card) {
-    $scope.player.collection.cards.forEach(function(c) {
-      c.selected = false;
-      c.selectedClass = '';
-    });
-    card.selected = true;
-    card.selectedClass = 'card-selected';
-    $scope.cardSelectedInCollection = card;
-    if ($scope.cardSelectedInDeck && $scope.cardSelectedInCollection) {
-      $scope.swapCardBetweenDeckAndCollection($scope.cardSelectedInDeck, $scope.cardSelectedInCollection);      
+  $scope.cardClicked = function(where, card) {
+    // If clicked on card in deck:
+    //   If collection has selected card:
+    //     If collection selected card is upgrade, apply upgrade.
+    //     If collection selected card is playable, swap cards.
+    //   Else:
+    //     card.setSelected(true)
+    // 
+    // If clicked on card in collection:
+    //   If deck has selected card:
+    //     If collection clicked card is upgrade, apply upgrade.
+    //     If collection clicked card is playable, swap cards.
+    //   ElseIf collection has selected card:
+    //     If collection selected card is upgrade, apply upgrade.
+    //   Else:
+    //     card.setSelected(true)
+    //   
+    if (where === PAGE_SECTION_PLAYER_DECK) {
+      if ($scope.cardSelectedInCollection) {
+        if ($scope.cardSelectedInCollection.type === CARDTYPE_PLAY) {
+          // Swap cards.
+          $scope.swapCardBetweenDeckAndCollection(card, $scope.cardSelectedInCollection);
+          $scope.player.deck.unselectCards();
+          $scope.player.collection.unselectCards();
+        }
+        else {
+          // Apply upgrade, then destroy upgrade.
+          card.applyUpgrade($scope.cardSelectedInCollection);
+          $scope.player.deck.calculateTotalPower();
+          $scope.player.collection.removeCard($scope.cardSelectedInCollection);
+          $scope.player.deck.unselectCards();
+          $scope.player.collection.unselectCards();
+        }
+      }
+      else {
+        $scope.player.deck.unselectCards();
+        card.setSelected(true);
+        $scope.cardSelectedInDeck = card;
+      }
+    }
+    if (where === PAGE_SECTION_PLAYER_COLLECTION) {
+      if ($scope.cardSelectedInDeck) {
+        if (card.type === CARDTYPE_PLAY) {
+          console.info('swapping cards');
+          // Swap cards.
+          $scope.swapCardBetweenDeckAndCollection($scope.cardSelectedInDeck, card);
+          $scope.player.deck.unselectCards();
+          $scope.player.collection.unselectCards();
+        }
+      }
+      else {
+        $scope.player.collection.unselectCards();
+        card.setSelected(true);
+        $scope.cardSelectedInCollection = card;
+      }
     }
   };
 

@@ -11,6 +11,12 @@ function Collection() {
   self.removeCard = function(card) {
     _.remove(this.cards, { id: card.id });
   };
+
+  self.unselectCards = function() {
+    self.cards.forEach(function(c) {
+      c.setSelected(false);
+    });
+  };
 };
 
 // We use an IIFE here, to keep getNextCollectionId out of the global scope.

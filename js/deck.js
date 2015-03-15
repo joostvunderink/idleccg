@@ -72,6 +72,12 @@ function Deck() {
       self.primaryElement = ELEMENT_BY_NAME[primaryElement];
     }
   };
+
+  self.unselectCards = function() {
+    self.cards.forEach(function(c) {
+      c.setSelected(false);
+    });
+  };
 };
 
 // We use an IIFE here, to keep getNextDeckId out of the global scope.
