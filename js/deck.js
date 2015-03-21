@@ -103,7 +103,8 @@ function createInitialPlayerDeck() {
   var deck = DeckFactory();
 
   [ELEMENT_WATER, ELEMENT_AIR, ELEMENT_FIRE].forEach(function(element) {
-    var card = CardFactory({
+    var card = ItemFactory({
+      type   : ITEM_CARD,
       element: element,
       power  : 1,
     });
@@ -119,7 +120,8 @@ function createOpponentDeck(data) {
   for (var i = 0; i < data.deckSize; i++) {
     var power = Math.floor( (Math.random() * (data.maxPower - data.minPower)) + data.minPower);
     var element = getRandomElement();
-    var card = CardFactory({
+    var card = ItemFactory({
+      type   : ITEM_CARD,
       element: element,
       power  : power,
     });

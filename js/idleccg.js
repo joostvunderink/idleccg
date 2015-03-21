@@ -96,7 +96,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     //   
     if (where === PAGE_SECTION_PLAYER_DECK) {
       if ($scope.cardSelectedInCollection) {
-        if ($scope.cardSelectedInCollection.type === CARDTYPE_PLAY) {
+        if ($scope.cardSelectedInCollection.type === ITEM_CARD) {
           // Swap cards.
           $scope.swapCardBetweenDeckAndCollection(card, $scope.cardSelectedInCollection);
           $scope.player.deck.unselectCards();
@@ -104,6 +104,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
         }
         else {
           // Apply upgrade, then destroy upgrade.
+          $scope.addLogLine("Upgraded " + card.power + " to " + (card.power + $scope.cardSelectedInCollection.power));
           card.applyUpgrade($scope.cardSelectedInCollection);
           $scope.player.deck.calculateTotalPower();
           $scope.player.collection.removeCard($scope.cardSelectedInCollection);
@@ -112,6 +113,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
         }
       }
       else {
+        // Card in deck was selected. Mark as selected.
         $scope.player.deck.unselectCards();
         card.setSelected(true);
         $scope.cardSelectedInDeck = card;
@@ -119,7 +121,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     }
     if (where === PAGE_SECTION_PLAYER_COLLECTION) {
       if ($scope.cardSelectedInDeck) {
-        if (card.type === CARDTYPE_PLAY) {
+        if (card.type === ITEM_CARD) {
           console.info('swapping cards');
           // Swap cards.
           $scope.swapCardBetweenDeckAndCollection($scope.cardSelectedInDeck, card);
@@ -128,9 +130,29 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
         }
       }
       else {
-        $scope.player.collection.unselectCards();
-        card.setSelected(true);
-        $scope.cardSelectedInCollection = card;
+        if (card.type === ITEM_BOOSTER &&
+            $scope.cardSelectedInCollection &&
+            $scope.cardSelectedInCollection.id == card.id     
+        ) {
+          // Booster was selected and clicked again. Open it.
+          $scope.addLogLine('Opened booster');
+          var cards = card.getContents();
+          cards.forEach(function(card) {
+            if (card.type === ITEM_UPGRADE) {
+              $scope.addLogLine('Added upgrade: ' + card.text);
+            }
+            $scope.player.collection.addCard(card);
+          });
+          $scope.player.collection.removeCard($scope.cardSelectedInCollection);
+          $scope.player.collection.unselectCards();
+        }
+        else {
+          console.log("selecting card in collection");
+          // Card in collection was selected. Mark as selected.
+          $scope.player.collection.unselectCards();
+          card.setSelected(true);
+          $scope.cardSelectedInCollection = card;
+        }
       }
     }
   };

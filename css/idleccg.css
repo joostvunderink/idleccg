@@ -10,10 +10,13 @@ div.container {
 .card {
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
     font-weight: bold;
     font-size: 120%;
     border-width: 3px;
     margin-right: 3px;
+    text-align: center;
 }
 
 div.card-water {
@@ -36,7 +39,11 @@ div.card-fire {
 div.card-upgrade {
   background-color: #AEB404;
   color: #fff;
+}
 
+div.card-booster {
+  background-color: #AC58FA;
+  color: #fff;
 }
 
 div.card-dominated {

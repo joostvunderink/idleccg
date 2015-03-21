@@ -41,19 +41,26 @@ var CollectionFactory;
 function createInitialPlayerCollection() {
   var collection = CollectionFactory();
 
-  [ELEMENT_EARTH].forEach(function(element) {
-    var card = CardFactory({
+  [ELEMENT_EARTH, ELEMENT_FIRE].forEach(function(element) {
+    var card = ItemFactory({
+      type   : ITEM_CARD,
       element: element,
       power  : 1,
     });
     collection.addCard(card);
   });
 
-  var card = CardFactory({
-    type: CARDTYPE_UPGRADE,
+  var upgradeCard = ItemFactory({
+    type: ITEM_UPGRADE,
     power: 1,
   });
-  collection.addCard(card);
+  collection.addCard(upgradeCard);
+
+  var booster = ItemFactory({
+    type: ITEM_BOOSTER,
+    level: 1,
+  });
+  collection.addCard(booster);
 
   return collection;
 }
