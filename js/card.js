@@ -136,7 +136,6 @@ function Booster() {
     while (!found) {
       var tmpNum = Math.floor(Math.random() * max + 1);
       var chance = Math.random();
-      console.log("tmpnum: " + tmpNum + ", chance: " + chance);
       if (chance >= probabilityMap[tmpNum]) {
         num = tmpNum;
         found = true;

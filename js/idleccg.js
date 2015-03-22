@@ -147,7 +147,6 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
           $scope.player.collection.unselectCards();
         }
         else {
-          console.log("selecting card in collection");
           // Card in collection was selected. Mark as selected.
           $scope.player.collection.unselectCards();
           card.setSelected(true);
