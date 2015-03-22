@@ -25,18 +25,11 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     collection: createInitialPlayerCollection(),
   };
 
-  $scope.opponent = {
-    health: {
-      max: 8,
-      current: 8,
-    },
-    deck: {
-    },
-    number: 1
-  };
+  initOpponents($scope);
 
-  giveOpponentRandomDeck($scope, 3);
-  calculatePowers($scope);
+  $scope.level = 0;
+  $scope.opponentNum = 0;
+
 
   $scope.gold = 0;
   $scope.log = [];
@@ -197,6 +190,33 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     $scope.cardSelectedInCollection = null;
     calculatePowers($scope)
   };
+
+  $scope.setOpponent = function() {
+    $scope.opponent = $scope.opponents[$scope.level][$scope.opponentNum];
+  };
+
+  $scope.nextOpponent = function() {
+    $scope.opponentNum++;
+    if ($scope.opponentNum > 3) {
+      $scope.opponentNum = 3;
+    }
+    $scope.setOpponent();
+    calculatePowers($scope);
+    resetGame($scope);
+  };
+
+  $scope.previousOpponent = function() {
+    $scope.opponentNum--;
+    if ($scope.opponentNum < 0) {
+      $scope.opponentNum = 0;
+    }
+    $scope.setOpponent();
+    calculatePowers($scope);
+    resetGame($scope);
+  };
+
+  $scope.setOpponent();
+  calculatePowers($scope);
 }]);
 
 function updateStatus($scope) {
@@ -233,7 +253,10 @@ function processGameTurn($scope) {
 }
 
 function playerWins($scope) {
-  var amount = 1;
+  var amount = $scope.opponent.goldGainedWhenPlayerWins;
+  if (amount < 0) {
+    amount = 1;
+  }
   $scope.gold += amount;
   $scope.addLogLine("Won " + amount + " gold.");
   resetGame($scope);
@@ -246,7 +269,9 @@ function opponentWins($scope) {
 function resetGame($scope) {
   $scope.player.health.current = $scope.player.health.max;
   $scope.opponent.health.current = $scope.opponent.health.max;
-  giveOpponentRandomDeck($scope, 3);
+  // giveOpponentRandomDeck($scope, 3);
+  initOpponents($scope);
+  $scope.setOpponent();
   calculatePowers($scope);
 }
 
@@ -264,3 +289,27 @@ function giveOpponentRandomDeck($scope, numCards) {
     maxPower: 2
   });
 }
+
+function initOpponents($scope) {
+  $scope.opponents = {
+    0: {}
+  };
+
+  for (var i = 0; i < 4; i++) {
+    var opponent = {
+      health: {
+        max: 8 + i * 3,
+        current: 8 + i * 3,
+      },
+      deck: createOpponentDeck({
+        deckSize: 3,
+        minPower: i,
+        maxPower: i+2
+      }),
+      number: i+1,
+      goldGainedWhenPlayerWins: i * 3 + 1
+    };
+    $scope.opponents[0][i] = opponent;
+  }
+}
+

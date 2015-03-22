@@ -1,25 +1,6 @@
-var ITEM_UNKNOWN     = 'unknown';
 var ITEM_CARD        = 'card';
 var ITEM_UPGRADE     = 'upgrade';
 var ITEM_BOOSTER     = 'booster';
-
-// TODO: Get inheritance/prototyping to work.
-function Item() {
-  var self = this;
-
-  self.selected = false;
-
-  self.setSelected = function(value) {
-    self.selected = value;
-    self.selectedClass = value ? 'card-selected' : '';
-  };
-
-  self.updateDisplayProperties = function() {
-    console.log(self.updateText);
-    self.updateText();
-    self.updateCssClass();
-  };
-}
 
 function Card() { 
   var self      = this;
@@ -83,8 +64,6 @@ function Upgrade() {
     self.updateCssClass();
   };
 }
-
-Upgrade.prototype = new Item();
 
 function Booster() {
   var self      = this;
@@ -165,8 +144,6 @@ function Booster() {
     return self.contents;
   };
 }
-
-Booster.prototype = new Item();
 
 // We use an IIFE here, to keep getNextCardId out of the global scope.
 var CardFactory;

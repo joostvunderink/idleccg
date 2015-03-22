@@ -57,3 +57,7 @@ div.card-selected {
 .logline {
   margin-bottom: 0px;
 }
+
+button.change-opponent {
+  color: #000;
+}

@@ -58,17 +58,25 @@
         <div class="col-sm-9">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Game - Level {{ currentLocation.level }} - Opponent {{ opponent.number }}
+                    Level {{ currentLocation.level }} - 
+                    <button ng-click="previousOpponent()" class="change-opponent">Previous</button>
+                    Opponent {{ opponent.number }}
+                    <button ng-click="nextOpponent()" class="change-opponent">Next</button>
                 </div>
                 <div class="panel-body">
 
                     <div class="col-sm-12">
-                        <div class="col-sm-2">
-                            <progressbar max="opponent.health.max" value="opponent.health.current">
-                            </progressbar>
+                        <div class="col-sm-4">
+                            <div class="col-sm-6">
+                                {{ opponent.health.current }} / {{ opponent.health.max }}
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- <progressbar max="opponent.health.max" value="opponent.health.current">
+                                </progressbar> -->
+                            </div>
                         </div>
-                        <div class="col-sm-7">
-                            Opponent Health: {{ opponent.health.current }}. Power: ({{ opponent.deck.totalPower }} -> {{ opponent.deck.adjustedPower }})
+                        <div class="col-sm-8">
+                             Power: ({{ opponent.deck.totalPower }} -> {{ opponent.deck.adjustedPower }})
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -87,12 +95,17 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <div class="col-sm-2">
-                            <progressbar max="player.health.max" value="player.health.current">
-                            </progressbar>
+                        <div class="col-sm-4">
+                            <div class="col-sm-6">
+                                {{ player.health.current }} / {{ player.health.max }}
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- <progressbar max="player.health.max" value="player.health.current">
+                                </progressbar> -->
+                            </div>
                         </div>
-                        <div class="col-sm-7">
-                            Player Health: {{ player.health.current }}. Power ({{ player.deck.totalPower }} -> {{ player.deck.adjustedPower }})
+                        <div class="col-sm-8">
+                            Power ({{ player.deck.totalPower }} -> {{ player.deck.adjustedPower }})
                         </div>
                     </div>
                 </div>

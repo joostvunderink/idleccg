@@ -9,3 +9,5 @@ TODO
 * Add more upgrades
   * Player health upgrade
 * Add option to sell items from collection
+* Add new card types
+  * Damage cards that increase the amount of damage that you do per hit
