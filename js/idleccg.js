@@ -77,6 +77,15 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     }
   };
 
+  $scope.buyBooster = function(level) {
+    $scope.gold -= 15;
+    var booster = ItemFactory({
+      type: ITEM_BOOSTER,
+      level: 1,
+    });
+    $scope.player.collection.addCard(booster);
+  };
+
   $scope.cardClicked = function(where, card) {
     // If clicked on card in deck:
     //   If collection has selected card:
@@ -139,7 +148,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
           var cards = card.getContents();
           cards.forEach(function(card) {
             if (card.type === ITEM_UPGRADE) {
-              $scope.addLogLine('Added upgrade: ' + card.text);
+              $scope.addLogLine('New upgrade: ' + card.text);
             }
             $scope.player.collection.addCard(card);
           });

@@ -146,7 +146,8 @@ function Booster() {
   };
 
   self.createCard = function() {
-    if (Math.random() < 0.7) {
+    var r = Math.random();
+    if (r < 0.7) {
       return ItemFactory({
         type: ITEM_UPGRADE,
         power: 1,
