@@ -113,11 +113,52 @@ function Booster() {
   };
 
   self.determineContents = function() {
-    var card = ItemFactory({
-      type: ITEM_UPGRADE,
-      power: 1,
-    });
-    self.contents = [ card ];
+    var numberOfCards = self.determineNumberOfCards();
+    self.contents = [];
+    for (var i = 0; i < numberOfCards; i++) {
+      var card = self.createCard();
+      self.contents.push(card);
+    }
+  };
+
+  self.determineNumberOfCards = function() {
+    var probabilityMap = {
+      1: 0,
+      2: 0.5,
+      3: 0.8,
+      4: 0.9,
+      5: 0.98
+    };
+    var max = 5;
+    var num;
+    var found = false;
+
+    while (!found) {
+      var tmpNum = Math.floor(Math.random() * max + 1);
+      var chance = Math.random();
+      console.log("tmpnum: " + tmpNum + ", chance: " + chance);
+      if (chance >= probabilityMap[tmpNum]) {
+        num = tmpNum;
+        found = true;
+      }
+    }
+
+    return num;
+  };
+
+  self.createCard = function() {
+    if (Math.random() < 0.7) {
+      return ItemFactory({
+        type: ITEM_UPGRADE,
+        power: 1,
+      });
+    }
+    else {
+      return ItemFactory({
+        type: ITEM_CARD,
+        power: 1,
+      });
+    }
   };
 
   self.getContents = function() {
