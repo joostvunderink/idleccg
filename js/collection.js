@@ -45,7 +45,7 @@ function createInitialPlayerCollection() {
     var card = ItemFactory({
       type   : ITEM_CARD,
       element: element,
-      power  : 1,
+      power  : 1
     });
     collection.addCard(card);
   });

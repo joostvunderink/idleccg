@@ -66,18 +66,23 @@
                 <div class="panel-body">
 
                     <div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <div class="col-sm-6">
-                                {{ opponent.health.current }} / {{ opponent.health.max }}
+                        <div class="col-sm-6">
+                            <div class="col-sm-4">
+                                HP: {{ opponent.health.current }} / {{ opponent.health.max }}
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <!-- <progressbar max="opponent.health.max" value="opponent.health.current">
                                 </progressbar> -->
+                                    Power: ({{ opponent.deck.totalPower }} -> {{ opponent.deck.adjustedPower }})
                             </div>
                         </div>
-                        <div class="col-sm-8">
-                             Power: ({{ opponent.deck.totalPower }} -> {{ opponent.deck.adjustedPower }})
+                        <div class="col-sm-6">
+                            <span ng-if="opponent.deck.primaryElement.name != 'None'">
+                                Their {{ opponent.deck.primaryElement.name }} dominates our {{ opponent.deck.primaryElement.dominatedElement.name }}
+                            </span>
                         </div>
+                    </div>
+                    <div class="col-sm-12"><br>
                     </div>
                     <div class="col-sm-12">
                         <div ng-repeat="card in opponent.deck.cards" 
@@ -95,17 +100,20 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <div class="col-sm-4">
-                            <div class="col-sm-6">
-                                {{ player.health.current }} / {{ player.health.max }}
+                        <div class="col-sm-6">
+                            <div class="col-sm-4">
+                                HP: {{ player.health.current }} / {{ player.health.max }}
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <!-- <progressbar max="player.health.max" value="player.health.current">
                                 </progressbar> -->
+                                Power ({{ player.deck.totalPower }} -> {{ player.deck.adjustedPower }})
                             </div>
                         </div>
-                        <div class="col-sm-8">
-                            Power ({{ player.deck.totalPower }} -> {{ player.deck.adjustedPower }})
+                        <div class="col-sm-6">
+                            <span ng-if="player.deck.primaryElement.name != 'None'">
+                                Our {{ player.deck.primaryElement.name }} dominates their {{ player.deck.primaryElement.dominatedElement.name }}
+                            </span>
                         </div>
                     </div>
                 </div>

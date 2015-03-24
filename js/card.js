@@ -16,7 +16,12 @@ function Card() {
   };
 
   self.updateText = function() {
-    this.text = this.power;
+    if (this.isDominated) {
+      this.text = this.power + " -> " + this.adjustedPower;
+    }
+    else {
+      this.text = this.power;
+    }
   };
 
   self.updateCssClass = function() {

@@ -1,30 +1,31 @@
-function Element(name) {
+function Element(name, icon) {
   this.name     = name;
   this.cssClass = 'card-' + name;
   this.dominatedElement = null;
   this.dominates    = function(otherElement) {
     return otherElement === this.dominatedElement;
-  }
+  };
+  this.icon = icon
 }
 
-var ELEMENT_WATER = new Element('water');
-var ELEMENT_FIRE  = new Element('fire');
-var ELEMENT_EARTH = new Element('earth');
-var ELEMENT_AIR   = new Element('air');
-var ELEMENT_NONE  = new Element('none');
+var ELEMENT_WATER = new Element('Water');
+var ELEMENT_FIRE  = new Element('Fire');
+var ELEMENT_EARTH = new Element('Earth');
+var ELEMENT_AIR   = new Element('Air');
+var ELEMENT_NONE  = new Element('None');
 
 ELEMENT_WATER.dominatedElement = ELEMENT_FIRE;
 ELEMENT_FIRE.dominatedElement  = ELEMENT_EARTH;
 ELEMENT_EARTH.dominatedElement = ELEMENT_AIR;
 ELEMENT_AIR.dominatedElement   = ELEMENT_WATER;
-ELEMENT_NONE.dominatedElement  = 'does-not-dominate';
+ELEMENT_NONE.dominatedElement  = ELEMENT_NONE;
 
 var ELEMENTS = [ELEMENT_WATER, ELEMENT_FIRE, ELEMENT_EARTH, ELEMENT_AIR];
 var ELEMENT_BY_NAME = {
-  water: ELEMENT_WATER,
-  air  : ELEMENT_AIR,
-  earth: ELEMENT_EARTH,
-  fire : ELEMENT_FIRE,
+  Water: ELEMENT_WATER,
+  Air  : ELEMENT_AIR,
+  Earth: ELEMENT_EARTH,
+  Fire : ELEMENT_FIRE
 };
 
 function getRandomElement() {
