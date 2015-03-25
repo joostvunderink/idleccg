@@ -38,12 +38,16 @@
                     Shop
                 </div>
                 <div class="panel-body">
-                    15: Booster 1 <button ng-click="buyBooster(1)" ng-show="gold >= 15">buy</button><br>
-                    50: Booster 2<br>
-                    100: Booster 3<br>
-                    Booster 4<br>
-                    Booster 5<br>
-                    Booster 6<br>
+                    {{ boosterPrices[1] }}: Booster 1 
+                    <button ng-click="buyBooster(1)" ng-show="gold >= boosterPrices[1]">buy</button><br>
+                    {{ boosterPrices[2] }}: Booster 2 
+                    <button ng-click="buyBooster(2)" ng-show="gold >= boosterPrices[2]">buy</button><br>
+                    {{ boosterPrices[3] }}: Booster 3 
+                    <button ng-click="buyBooster(3)" ng-show="gold >= boosterPrices[3]">buy</button><br>
+                    {{ boosterPrices[4] }}: Booster 4 
+                    <button ng-click="buyBooster(4)" ng-show="gold >= boosterPrices[4]">buy</button><br>
+                    {{ boosterPrices[5] }}: Booster 5 
+                    <button ng-click="buyBooster(5)" ng-show="gold >= boosterPrices[5]">buy</button><br>
                 </div>
             </div>
             <div class="panel panel-primary">

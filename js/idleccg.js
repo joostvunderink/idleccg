@@ -16,6 +16,15 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   _ = lodash;
   $scope.PAGE_SECTION_PLAYER_DECK = PAGE_SECTION_PLAYER_DECK;
   $scope.PAGE_SECTION_PLAYER_COLLECTION = PAGE_SECTION_PLAYER_COLLECTION;
+
+  $scope.boosterPrices = {
+    1: 15,
+    2: 50,
+    3: 120,
+    4: 390,
+    5: 850
+  };
+
   $scope.player = {
     health: {
       max: 10,
@@ -71,10 +80,10 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   };
 
   $scope.buyBooster = function(level) {
-    $scope.gold -= 15;
+    $scope.gold -= $scope.boosterPrices[level];
     var booster = ItemFactory({
       type: ITEM_BOOSTER,
-      level: 1,
+      level: level,
     });
     $scope.player.collection.addCard(booster);
   };

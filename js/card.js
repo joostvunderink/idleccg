@@ -70,6 +70,38 @@ function Upgrade() {
   };
 }
 
+// Probability of the number of cards per level.
+var boosterNumCardsProbabilityMap = {
+  1: {
+    1: 0,
+    2: 0.8
+  },
+  2: {
+    1: 0,
+    2: 0.7,
+    3: 0.9,
+  },
+  3: {
+    1: 0,
+    2: 0.6,
+    3: 0.85,
+    4: 0.95,
+  },
+  4: {
+    1: 0,
+    2: 0.5,
+    3: 0.8,
+    4: 0.9,
+  },
+  5: {
+    1: 0,
+    2: 0.5,
+    3: 0.8,
+    4: 0.9,
+    5: 0.96
+  }
+};
+
 function Booster() {
   var self      = this;
   self.type     = ITEM_BOOSTER;
@@ -106,14 +138,8 @@ function Booster() {
   };
 
   self.determineNumberOfCards = function() {
-    var probabilityMap = {
-      1: 0,
-      2: 0.5,
-      3: 0.8,
-      4: 0.9,
-      5: 0.98
-    };
-    var max = 5;
+    var probabilityMap = boosterNumCardsProbabilityMap[self.level];
+    var max = _.max(_.keys(probabilityMap));
     var num;
     var found = false;
 
@@ -134,13 +160,13 @@ function Booster() {
     if (r < 0.7) {
       return ItemFactory({
         type: ITEM_UPGRADE,
-        power: 1,
+        power: self.level * self.level,
       });
     }
     else {
       return ItemFactory({
         type: ITEM_CARD,
-        power: 1,
+        power: self.level * self.level,
       });
     }
   };
