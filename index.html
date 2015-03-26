@@ -81,8 +81,11 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <span ng-if="opponent.deck.primaryElement.name != 'None'">
+                            <span ng-if="opponent.deck.primaryElement.name !== 'None'">
                                 Their {{ opponent.deck.primaryElement.name }} dominates our {{ opponent.deck.primaryElement.dominatedElement.name }}
+                            </span>
+                            <span ng-if="opponent.deck.primaryElement.name === 'None'">
+                                Their deck has no primary element.
                             </span>
                         </div>
                     </div>
@@ -118,6 +121,9 @@
                             <span ng-if="player.deck.primaryElement.name != 'None'">
                                 Our {{ player.deck.primaryElement.name }} dominates their {{ player.deck.primaryElement.dominatedElement.name }}
                             </span>
+                            <span ng-if="player.deck.primaryElement.name === 'None'">
+                                Our deck has no primary element.
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -129,7 +135,7 @@
                 <div class="panel-body">
                     <div class="col-sm-12">
                         <div ng-repeat="card in player.collection.cards" 
-                             ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.selectedClass"
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.selectedClass + ' ' + card.dominatedClass"
                              ng-click="cardClicked(PAGE_SECTION_PLAYER_COLLECTION, card)">
                             {{ card.text }}
                         </div>

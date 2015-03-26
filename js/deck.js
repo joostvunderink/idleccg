@@ -31,11 +31,8 @@ function Deck() {
     self.cards.forEach(function(card) {
       if (opposingPrimaryElement.dominates(card.element)) {
         card.adjustedPower = parseInt(card.power / 2);
-        // TODO: I changed this to always show dominated to make it easier for the user to understand the mechanics.
-        //if (card.adjustedPower < card.power) {
-          card.isDominated = true;
-          card.dominatedClass = 'card-dominated';
-        //}
+        card.isDominated = true;
+        card.dominatedClass = 'card-dominated';
       }
       else {
         card.adjustedPower = card.power;

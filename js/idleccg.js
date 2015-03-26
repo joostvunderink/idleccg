@@ -187,6 +187,9 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     $scope.player.deck.addCard(cardInCollection);
     $scope.player.collection.addCard(cardInDeck);
 
+    cardInCollection.updateDisplayProperties();
+    cardInDeck.updateDisplayProperties();
+
     $scope.player.deck.cards.forEach(function(c) {
       c.selected = false;
       c.selectedClass = '';
@@ -197,7 +200,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     });
     $scope.cardSelectedInDeck = null;
     $scope.cardSelectedInCollection = null;
-    calculatePowers($scope)
+    calculatePowers($scope);
   };
 
   $scope.setOpponent = function() {
@@ -288,6 +291,7 @@ function calculatePowers($scope) {
   $scope.player.deck.getPrimaryElement();
   $scope.opponent.deck.getPrimaryElement();
   $scope.player.deck.calculateAdjustedPower($scope.opponent.deck.primaryElement);
+  $scope.player.collection.calculateAdjustedPower($scope.opponent.deck.primaryElement);
   $scope.opponent.deck.calculateAdjustedPower($scope.player.deck.primaryElement);
 }
 
@@ -304,7 +308,7 @@ function initOpponents($scope) {
     0: {}
   };
 
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 8; i++) {
     var opponent = {
       health: {
         max: 8 + i * 3,

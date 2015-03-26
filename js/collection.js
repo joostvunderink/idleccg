@@ -17,6 +17,28 @@ function Collection() {
       c.setSelected(false);
     });
   };
+
+  self.calculateAdjustedPower = function(opposingPrimaryElement) {
+    var adjustedPower = 0;
+    self.cards.forEach(function(card) {
+      if (card.type !== ITEM_CARD) {
+        return;
+      }
+      if (opposingPrimaryElement.dominates(card.element)) {
+        card.adjustedPower = parseInt(card.power / 2);
+        card.isDominated = true;
+        card.dominatedClass = 'card-dominated';
+      }
+      else {
+        card.adjustedPower = card.power;
+        card.isDominated = false;
+        card.dominatedClass = '';
+      }
+      card.updateDisplayProperties();
+      adjustedPower += card.adjustedPower;
+    });
+    self.adjustedPower = adjustedPower;
+  }
 };
 
 // We use an IIFE here, to keep getNextCollectionId out of the global scope.
