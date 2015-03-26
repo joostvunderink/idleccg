@@ -7,17 +7,19 @@ function Card() {
   self.type     = ITEM_CARD;
   self.element  = null;
   self.power    = 0;
+  self.damage   = 0;
   self.text     = '';
   self.cssClass = '';
 
   self.applyUpgrade = function(upgradeItem) {
     this.power += upgradeItem.power;
+    this.damage += upgradeItem.damage;
     this.updateDisplayProperties();
   };
 
   self.updateText = function() {
     if (this.isDominated) {
-      this.text = this.power + " -> " + this.adjustedPower;
+      this.text = this.adjustedPower + "(" + this.power + ")";
     }
     else {
       this.text = this.power;
@@ -52,6 +54,9 @@ function Upgrade() {
   self.updateText = function() {
     if (self.power > 0) {
       self.text = "p+" + self.power;
+    }
+    if (self.damage > 0) {
+      self.text = "d+" + self.damage;
     }
   };
 
@@ -157,10 +162,16 @@ function Booster() {
 
   self.createCard = function() {
     var r = Math.random();
-    if (r < 0.7) {
+    if (r < 0.4) {
       return ItemFactory({
         type: ITEM_UPGRADE,
         power: self.level * self.level,
+      });
+    }
+    else if (r < 0.7) {
+      return ItemFactory({
+        type: ITEM_UPGRADE,
+        damage: self.level * self.level,
       });
     }
     else {
@@ -196,6 +207,16 @@ var CardFactory;
     if (data.power) {
       card.power = data.power;
     }
+    else {
+      card.power = 1;
+    }
+
+    if (data.damage) {
+      card.damage = data.damage;
+    }
+    else {
+      card.damage = 1;
+    }
 
     card.updateDisplayProperties();
     return card;
@@ -213,6 +234,16 @@ var UpgradeFactory;
 
     if (data.power) {
       upgrade.power = data.power;
+    }
+    else {
+      upgrade.power = 0;
+    }
+
+    if (data.damage) {
+      upgrade.damage = data.damage;
+    }
+    else {
+      upgrade.damage = 0;
     }
 
     upgrade.updateDisplayProperties();

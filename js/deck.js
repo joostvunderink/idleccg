@@ -9,12 +9,14 @@ function Deck() {
   self.addCard = function(card) {
     this.cards.push(card);
     this.calculateTotalPower();
+    this.calculateTotalDamage();
     this.getPrimaryElement();
   };
 
   self.removeCard = function(card) {
     _.remove(this.cards, { id: card.id });
     this.calculateTotalPower();
+    this.calculateTotalDamage();
     this.getPrimaryElement();
   };
 
@@ -24,6 +26,14 @@ function Deck() {
       totalPower += card.power;
     });
     self.totalPower = totalPower;
+  };
+
+  self.calculateTotalDamage = function() {
+    var totalDamage = 0;
+    self.cards.forEach(function(card) {
+      totalDamage += card.damage;
+    });
+    self.totalDamage = totalDamage;
   };
 
   self.calculateAdjustedPower = function(opposingPrimaryElement) {

@@ -94,7 +94,7 @@
                     <div class="col-sm-12">
                         <div ng-repeat="card in opponent.deck.cards" 
                              ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass">
-                            {{ card.text }}
+                            {{ card.text }}<br>{{card.damage}}
                         </div>
                     </div>
                     <div class="col-sm-12"><br>
@@ -103,7 +103,7 @@
                         <div ng-repeat="card in player.deck.cards" 
                              ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass"
                              ng-click="cardClicked(PAGE_SECTION_PLAYER_DECK, card)">
-                            {{ card.text }}
+                            {{ card.text }}<br>{{card.damage}}
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -137,7 +137,8 @@
                         <div ng-repeat="card in player.collection.cards" 
                              ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.selectedClass + ' ' + card.dominatedClass"
                              ng-click="cardClicked(PAGE_SECTION_PLAYER_COLLECTION, card)">
-                            {{ card.text }}
+                            <span ng-show="card.type == 'card'">{{ card.text }}<br>{{card.damage}}</span>
+                            <span ng-show="card.type != 'card'">{{ card.text }}</span>
                         </div>
                     </div>
                 </div>

@@ -27,8 +27,8 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
   $scope.player = {
     health: {
-      max: 10,
-      current: 10,
+      max: 12,
+      current: 12,
     },
     deck: createInitialPlayerDeck(),
     collection: createInitialPlayerCollection(),
@@ -209,8 +209,8 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
   $scope.nextOpponent = function() {
     $scope.opponentNum++;
-    if ($scope.opponentNum > 3) {
-      $scope.opponentNum = 3;
+    if ($scope.opponentNum > 7) {
+      $scope.opponentNum = 7;
     }
     $scope.setOpponent();
     calculatePowers($scope);
@@ -248,16 +248,23 @@ function processGameTurn($scope) {
   var playerFactor = $scope.player.deck.adjustedPower / ($scope.player.deck.adjustedPower + $scope.opponent.deck.adjustedPower);
   var randomNumber = Math.random();
 
+  function determineDamage(max) {
+    var damage = Math.floor(Math.random() * max) + 1;
+    return damage;
+  }
+
   if (randomNumber <= playerFactor) {
     // Player hits opponent
-    $scope.opponent.health.current--;
+    var damage = determineDamage($scope.player.deck.totalDamage);
+    $scope.opponent.health.current -= damage;
     if ($scope.opponent.health.current <= 0) {
       playerWins($scope);
     }
   }
   else {
     // Opponent hits player
-    $scope.player.health.current--;
+    var damage = determineDamage($scope.opponent.deck.totalDamage);
+    $scope.player.health.current -= damage;
     if ($scope.player.health.current <= 0) {
       opponentWins($scope);
     }
@@ -311,8 +318,8 @@ function initOpponents($scope) {
   for (var i = 0; i < 8; i++) {
     var opponent = {
       health: {
-        max: 8 + i * 3,
-        current: 8 + i * 3,
+        max: 10 + i * 3,
+        current: 10 + i * 3,
       },
       deck: createOpponentDeck({
         deckSize: 3,
