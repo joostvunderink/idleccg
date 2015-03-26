@@ -161,23 +161,31 @@ function Booster() {
   };
 
   self.createCard = function() {
+    function randomPowerLevel(level) {
+      var pl = Math.floor(Math.random() * (level * level / 2) + level * level / 2);
+      if (pl < 1) { 
+        pl = 1;
+      }
+      // console.log("level=%s, pl=%s", level, pl);
+      return pl;
+    }
     var r = Math.random();
     if (r < 0.4) {
       return ItemFactory({
         type: ITEM_UPGRADE,
-        power: self.level * self.level,
+        power: randomPowerLevel(self.level),
       });
     }
     else if (r < 0.7) {
       return ItemFactory({
         type: ITEM_UPGRADE,
-        damage: self.level * self.level,
+        damage: randomPowerLevel(self.level),
       });
     }
     else {
       return ItemFactory({
         type: ITEM_CARD,
-        power: self.level * self.level,
+        power: randomPowerLevel(self.level),
       });
     }
   };
