@@ -19,7 +19,7 @@ function Card() {
 
   self.updateText = function() {
     if (this.isDominated) {
-      this.text = this.adjustedPower + "(" + this.power + ")";
+      this.text = "(" + this.adjustedPower + ")";
     }
     else {
       this.text = this.power;

@@ -68,19 +68,24 @@
                     <button ng-click="nextOpponent()" class="change-opponent">Next</button>
                 </div>
                 <div class="panel-body">
-
                     <div class="col-sm-12">
-                        <div class="col-sm-6">
-                            <div class="col-sm-4">
-                                HP: {{ opponent.health.current }} / {{ opponent.health.max }}
-                            </div>
-                            <div class="col-sm-8">
-                                <!-- <progressbar max="opponent.health.max" value="opponent.health.current">
-                                </progressbar> -->
-                                    Power: ({{ opponent.deck.totalPower }} -> {{ opponent.deck.adjustedPower }})
-                            </div>
+                        <div ng-repeat="card in opponent.deck.cards"
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass">
+                            <span style="font-size: 70%"><i class="glyphicon glyphicon-chevron-right"></i></span> {{ card.text }}<br>
+                            <span style="font-size: 70%"><i class="glyphicon glyphicon-flash"></i></span> {{card.damage}}
                         </div>
-                        <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-2">
+                            HP: {{ opponent.health.current }} / {{ opponent.health.max }}
+                        </div>
+                        <div class="col-sm-3">
+                            Power: <span style="font-size: 70%"><i class="glyphicon glyphicon-chevron-right"></i></span> {{ opponent.deck.totalPower }} -> {{ opponent.deck.adjustedPower }}
+                        </div>
+                        <div class="col-sm-2">
+                            Damage: <span style="font-size: 70%"><i class="glyphicon glyphicon-flash"></i></span> {{ opponent.deck.totalDamage }}
+                        </div>
+                        <div class="col-sm-5">
                             <span ng-if="opponent.deck.primaryElement.name !== 'None'">
                                 Their {{ opponent.deck.primaryElement.name }} dominates our {{ opponent.deck.primaryElement.dominatedElement.name }}
                             </span>
@@ -89,35 +94,17 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-sm-12"><br>
-                    </div>
                     <div class="col-sm-12">
-                        <div ng-repeat="card in opponent.deck.cards" 
-                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass">
-                            {{ card.text }}<br>{{card.damage}}
+                        <div class="col-sm-2">
+                            HP: {{ player.health.current }} / {{ player.health.max }}
                         </div>
-                    </div>
-                    <div class="col-sm-12"><br>
-                    </div>
-                    <div class="col-sm-12">
-                        <div ng-repeat="card in player.deck.cards" 
-                             ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass"
-                             ng-click="cardClicked(PAGE_SECTION_PLAYER_DECK, card)">
-                            {{ card.text }}<br>{{card.damage}}
+                        <div class="col-sm-3">
+                            Power: <span style="font-size: 70%"><i class="glyphicon glyphicon-chevron-right"></i></span> {{ player.deck.totalPower }} -> {{ player.deck.adjustedPower }}
                         </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-6">
-                            <div class="col-sm-4">
-                                HP: {{ player.health.current }} / {{ player.health.max }}
-                            </div>
-                            <div class="col-sm-8">
-                                <!-- <progressbar max="player.health.max" value="player.health.current">
-                                </progressbar> -->
-                                Power ({{ player.deck.totalPower }} -> {{ player.deck.adjustedPower }})
-                            </div>
+                        <div class="col-sm-2">
+                            Damage: <span style="font-size: 70%"><i class="glyphicon glyphicon-flash"></i></span> {{ player.deck.totalDamage }}
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             <span ng-if="player.deck.primaryElement.name != 'None'">
                                 Our {{ player.deck.primaryElement.name }} dominates their {{ player.deck.primaryElement.dominatedElement.name }}
                             </span>
@@ -126,7 +113,18 @@
                             </span>
                         </div>
                     </div>
+                    <div class="col-sm-12"><br>
+                    </div>
+                    <div class="col-sm-12">
+                        <div ng-repeat="card in player.deck.cards"
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass"
+                             ng-click="cardClicked(PAGE_SECTION_PLAYER_DECK, card)">
+                            <span style="font-size: 70%"><i class="glyphicon glyphicon-chevron-right"></i></span> {{ card.text }}<br>
+                            <span style="font-size: 70%"><i class="glyphicon glyphicon-flash"></i></span> {{card.damage}}
+                        </div>
+                    </div>
                 </div>
+                <div class="panel-footer panel-primary"><a href="#" </div>
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
