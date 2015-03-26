@@ -3,6 +3,7 @@ var cardGameApp = angular.module('cardGameApp',['ui.bootstrap', 'ngLodash']);
 var debug = false;
 var PAGE_SECTION_PLAYER_DECK = 'player-deck';
 var PAGE_SECTION_PLAYER_COLLECTION = 'player-collection';
+var OPPONENTS_PER_LEVEL = 10;
 
 function logDebug(msg) {
   if (debug) {
@@ -209,8 +210,8 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
   $scope.nextOpponent = function() {
     $scope.opponentNum++;
-    if ($scope.opponentNum > 7) {
-      $scope.opponentNum = 7;
+    if ($scope.opponentNum > OPPONENTS_PER_LEVEL - 1) {
+      $scope.opponentNum = OPPONENTS_PER_LEVEL - 1;
     }
     $scope.setOpponent();
     calculatePowers($scope);
@@ -315,16 +316,19 @@ function initOpponents($scope) {
     0: {}
   };
 
-  for (var i = 0; i < 8; i++) {
+  for (var i = 0; i < OPPONENTS_PER_LEVEL; i++) {
+    var health = 6 + parseInt(Math.pow(1.8, i+2));
     var opponent = {
       health: {
-        max: 10 + i * 3,
-        current: 10 + i * 3,
+        max: health,
+        current: health,
       },
       deck: createOpponentDeck({
         deckSize: 3,
         minPower: i,
-        maxPower: i+2
+        maxPower: i+3,
+        minDamage: i,
+        maxDamage: i + 2
       }),
       number: i+1,
       goldGainedWhenPlayerWins: i * 3 + 1
