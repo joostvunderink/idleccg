@@ -78,6 +78,12 @@ function createInitialPlayerCollection() {
   });
   collection.addCard(upgradeCard);
 
+  var playerUpgradeCard = ItemFactory({
+    type: ITEM_PLAYER_UPGRADE,
+    health: 1,
+  });
+  collection.addCard(playerUpgradeCard);
+
   var booster = ItemFactory({
     type: ITEM_BOOSTER,
     level: 1,

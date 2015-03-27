@@ -1,6 +1,7 @@
 var ITEM_CARD        = 'card';
 var ITEM_UPGRADE     = 'upgrade';
 var ITEM_BOOSTER     = 'booster';
+var ITEM_PLAYER_UPGRADE = 'player-upgrade';
 
 function Card() { 
   var self      = this;
@@ -47,6 +48,7 @@ function Upgrade() {
   var self      = this;
   self.type     = ITEM_UPGRADE;
   self.power    = 0;
+  self.damage   = 0;
   self.health   = 0;
   self.text     = '';
   self.cssClass = '';
@@ -58,6 +60,31 @@ function Upgrade() {
     if (self.damage > 0) {
       self.text = "d+" + self.damage;
     }
+  };
+
+  self.updateCssClass = function() {
+    self.cssClass = 'card-upgrade';
+  };
+
+  self.setSelected = function(value) {
+    self.selected = value;
+    self.selectedClass = value ? 'card-selected' : '';
+  };
+
+  self.updateDisplayProperties = function() {
+    self.updateText();
+    self.updateCssClass();
+  };
+}
+
+function PlayerUpgrade() {
+  var self      = this;
+  self.type     = ITEM_PLAYER_UPGRADE;
+  self.health   = 0;
+  self.text     = '';
+  self.cssClass = '';
+
+  self.updateText = function() {
     if (self.health > 0) {
       self.text = "h+" + self.health;
     }
@@ -175,7 +202,7 @@ function Booster() {
     var r = Math.random();
     if (r < 0.2) {
       return ItemFactory({
-        type: ITEM_UPGRADE,
+        type: ITEM_PLAYER_UPGRADE,
         health: randomPowerLevel(self.level),
       });
     }
@@ -188,14 +215,14 @@ function Booster() {
     else if (r < 0.8) {
       return ItemFactory({
         type: ITEM_UPGRADE,
-        damage: randomPowerLevel(self.level),
+        damage: Math.round(Math.sqrt(randomPowerLevel(self.level))),
       });
     }
     else {
       return ItemFactory({
         type: ITEM_CARD,
         power: randomPowerLevel(self.level),
-        damage: randomPowerLevel(self.level),
+        damage: Math.round(Math.sqrt(randomPowerLevel(self.level))),
       });
     }
   };
@@ -253,26 +280,31 @@ var UpgradeFactory;
     if (data.power) {
       upgrade.power = data.power;
     }
-    else {
-      upgrade.power = 0;
-    }
 
     if (data.damage) {
       upgrade.damage = data.damage;
     }
-    else {
-      upgrade.damage = 0;
-    }
-
-    if (data.health) {
-      upgrade.health = data.health;
-    }
-    else {
-      upgrade.health = 0;
-    }
 
     upgrade.updateDisplayProperties();
     return upgrade;
+};
+})();
+
+var PlayerUpgradeFactory;
+(function() {
+  PlayerUpgradeFactory = function(data) {
+    var playerUpgrade = new PlayerUpgrade();
+
+    if (data.id) {
+      playerUpgrade.id = data.id;
+    }
+
+    if (data.health) {
+      playerUpgrade.health = data.health;
+    }
+
+    playerUpgrade.updateDisplayProperties();
+    return playerUpgrade;
 };
 })();
 
@@ -310,6 +342,9 @@ var ItemFactory;
     }
     else if (data.type === ITEM_UPGRADE) {
       return UpgradeFactory(data);
+    }
+    else if (data.type === ITEM_PLAYER_UPGRADE) {
+      return PlayerUpgradeFactory(data);
     }
     else if (data.type === ITEM_BOOSTER) {
       return BoosterFactory(data);

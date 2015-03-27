@@ -173,21 +173,29 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
         }
       }
       else {
-        if (card.type === ITEM_BOOSTER &&
-            $scope.cardSelectedInCollection &&
+        if ($scope.cardSelectedInCollection &&
             $scope.cardSelectedInCollection.id == card.id     
         ) {
-          // Booster was selected and clicked again. Open it.
-          $scope.addLogLine('Opened booster');
-          var cards = card.getContents();
-          cards.forEach(function(card) {
-            if (card.type === ITEM_UPGRADE) {
-              $scope.addLogLine('New upgrade: ' + card.text);
-            }
-            $scope.player.collection.addCard(card);
-          });
-          $scope.player.collection.removeCard($scope.cardSelectedInCollection);
-          $scope.player.collection.unselectCards();
+          console.log(card);
+          if (card.type === ITEM_BOOSTER) {
+            // Booster was selected and clicked again. Open it.
+            $scope.addLogLine('Opened booster');
+            var cards = card.getContents();
+            cards.forEach(function(card) {
+              if (card.type === ITEM_UPGRADE) {
+                $scope.addLogLine('New upgrade: ' + card.text);
+              }
+              $scope.player.collection.addCard(card);
+            });
+            $scope.player.collection.removeCard($scope.cardSelectedInCollection);
+            $scope.player.collection.unselectCards();
+          }
+          if (card.type === ITEM_PLAYER_UPGRADE) {
+            $scope.addLogLine('Increased health: %s', card.health);
+            $scope.player.health.max += card.health;
+            $scope.player.collection.removeCard($scope.cardSelectedInCollection);
+            $scope.player.collection.unselectCards();
+          }
         }
         else {
           // Card in collection was selected. Mark as selected.
@@ -389,8 +397,8 @@ function initOpponents($scope) {
         deckSize: 3,
         minPower: i,
         maxPower: i+3,
-        minDamage: i,
-        maxDamage: i + 2
+        minDamage: i/2,
+        maxDamage: i/2 + 1
       }),
       number: i+1,
       goldGainedWhenPlayerWins: i * 3 + 1
