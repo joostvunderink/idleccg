@@ -44,7 +44,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   $scope.opponentNum = 0;
 
 
-  $scope.gold = 0;
+  $scope.gold = 1000;
   $scope.log = [];
   $scope.maxLogLines = 10;
 

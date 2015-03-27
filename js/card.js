@@ -58,6 +58,9 @@ function Upgrade() {
     if (self.damage > 0) {
       self.text = "d+" + self.damage;
     }
+    if (self.health > 0) {
+      self.text = "h+" + self.health;
+    }
   };
 
   self.updateCssClass = function() {
@@ -170,13 +173,19 @@ function Booster() {
       return pl;
     }
     var r = Math.random();
-    if (r < 0.4) {
+    if (r < 0.2) {
+      return ItemFactory({
+        type: ITEM_UPGRADE,
+        health: randomPowerLevel(self.level),
+      });
+    }
+    if (r < 0.5) {
       return ItemFactory({
         type: ITEM_UPGRADE,
         power: randomPowerLevel(self.level),
       });
     }
-    else if (r < 0.7) {
+    else if (r < 0.8) {
       return ItemFactory({
         type: ITEM_UPGRADE,
         damage: randomPowerLevel(self.level),
@@ -186,6 +195,7 @@ function Booster() {
       return ItemFactory({
         type: ITEM_CARD,
         power: randomPowerLevel(self.level),
+        damage: randomPowerLevel(self.level),
       });
     }
   };
@@ -252,6 +262,13 @@ var UpgradeFactory;
     }
     else {
       upgrade.damage = 0;
+    }
+
+    if (data.health) {
+      upgrade.health = data.health;
+    }
+    else {
+      upgrade.health = 0;
     }
 
     upgrade.updateDisplayProperties();
