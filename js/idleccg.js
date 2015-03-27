@@ -5,6 +5,9 @@ var PAGE_SECTION_PLAYER_DECK = 'player-deck';
 var PAGE_SECTION_PLAYER_COLLECTION = 'player-collection';
 var OPPONENTS_PER_LEVEL = 10;
 
+var AFTER_GAME_PAUZE_TIME_RUNNING = 3;
+var AFTER_GAME_PAUZE_TIME_PAUSED = 1;
+
 function logDebug(msg) {
   if (debug) {
     console.log(msg);
@@ -45,9 +48,18 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   $scope.log = [];
   $scope.maxLogLines = 10;
 
+  $scope.timeRunning = true;
+  $scope.afterGamePauze = 0;
+  $scope.playerMessage = "";
+  $scope.opponentMessage = "";
+
+
   $scope.gameData = {
     startTime         : new Date().getTime(),
     previousUpdateTime: new Date().getTime(),
+    totalGames        : 0,
+    totalWins         : 0,
+    totalTurns        : 0,
     score             : 0.0,
     totalScore        : 0.0,
     scorePerSecond    : 1.0,
@@ -64,7 +76,25 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     level: 1
   };
 
-  $interval(function() { updateStatus($scope) }, 378);
+  $interval(function() {
+    if ($scope.timeRunning) {
+      updateStatus($scope)
+    }
+  }, 378);
+
+  $scope.toggleTimeRunning = function() {
+    $scope.timeRunning = !$scope.timeRunning;
+  };
+
+
+  /**
+   * Run a single time step. Dont do this when time is already running to prevent clicking for extra time events.
+   */
+  $scope.runTimeStepManual = function() {
+    if (!$scope.timeRunning) {
+      updateStatus($scope)
+    }
+  };
 
   $scope.addLogLine = function(text) {
     var now = new Date();
@@ -240,14 +270,28 @@ function updateStatus($scope) {
   $scope.gameData.totalScore += $scope.gameData.scorePerSecond * timeDiff;
   $scope.gameData.timeSinceStart = (currentTime - $scope.gameData.startTime) / 1000;
   $scope.gameData.previousUpdateTime = currentTime;
-  
-  processGameTurn($scope);
+
+  $scope.playerMessage = "";
+  $scope.opponentMessage = "";
+
+  if ($scope.afterGamePauze > 0) {
+    $scope.afterGamePauze -= 1;
+    if ( $scope.afterGamePauze <= 0 ) {
+      resetGame($scope);
+    }
+  }
+  else {
+    processGameTurn($scope);
+  }
+
 }
 
 
 function processGameTurn($scope) {
   var playerFactor = $scope.player.deck.adjustedPower / ($scope.player.deck.adjustedPower + $scope.opponent.deck.adjustedPower);
   var randomNumber = Math.random();
+
+  $scope.gameData.totalTurns += 1;
 
   function determineDamage(max) {
     var damage = Math.floor(Math.random() * max) + 1;
@@ -258,7 +302,9 @@ function processGameTurn($scope) {
     // Player hits opponent
     var damage = determineDamage($scope.player.deck.totalDamage);
     $scope.opponent.health.current -= damage;
+    $scope.opponentMessage = "Hit for " + damage;
     if ($scope.opponent.health.current <= 0) {
+      $scope.opponentMessage += ", loses."
       playerWins($scope);
     }
   }
@@ -266,11 +312,14 @@ function processGameTurn($scope) {
     // Opponent hits player
     var damage = determineDamage($scope.opponent.deck.totalDamage);
     $scope.player.health.current -= damage;
+    $scope.playerMessage = "Hit for " + damage;
     if ($scope.player.health.current <= 0) {
+      $scope.playerMessage += ", loses."
       opponentWins($scope);
     }
   }
 }
+
 
 function playerWins($scope) {
   var amount = $scope.opponent.goldGainedWhenPlayerWins;
@@ -278,12 +327,24 @@ function playerWins($scope) {
     amount = 1;
   }
   $scope.gold += amount;
+  $scope.gameData.totalGames += 1;
+  $scope.gameData.totalWins += 1;
   $scope.addLogLine("Won " + amount + " gold.");
-  resetGame($scope);
+  setAfterGamePause($scope);
 }
 
 function opponentWins($scope) {
-  resetGame($scope);
+  $scope.gameData.totalGames += 1;
+  setAfterGamePause($scope);
+}
+
+function setAfterGamePause($scope) {
+  if ($scope.timeRunning) {
+    $scope.afterGamePauze = AFTER_GAME_PAUZE_TIME_RUNNING;
+  }
+  else {
+    $scope.afterGamePauze = AFTER_GAME_PAUZE_TIME_PAUSED;
+  }
 }
 
 function resetGame($scope) {

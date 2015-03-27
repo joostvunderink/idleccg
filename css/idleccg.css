@@ -75,3 +75,29 @@ div.card-selected {
 button.change-opponent {
   color: #000;
 }
+
+.opponent-card-panel {
+    margin-bottom: 0px;
+}
+
+@-webkit-keyframes example {
+    to {
+        background-color: #555555;
+        opacity: 1;
+    }
+}
+
+/* The element to apply the animation to */
+div.dies {
+    -webkit-animation-name: example;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-iteration-count: 2;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in;
+
+    animation-name: example;
+    animation-duration: 0.5s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+    animation-timing-function: ease-in;
+}

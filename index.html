@@ -29,7 +29,19 @@
                     Overview
                 </div>
                 <div class="panel-body">
-                    <p>time since start: {{ gameData.timeSinceStart }}</p>
+                    <div class="row">
+                        <div class="col-sm-7">Time since start</div>
+                        <div class="col-sm-5">{{ gameData.timeSinceStart }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">Turns</div>
+                        <div class="col-sm-5">{{ gameData.totalTurns }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">Games (wins)</div>
+                        <div class="col-sm-5">{{ gameData.totalGames }} ({{ gameData.totalWins }})</div>
+                    </div>
+                    <br>
                     <p>Gold: {{ gold }}</p>
                 </div>
             </div>
@@ -70,10 +82,15 @@
                 <div class="panel-body">
                     <div class="col-sm-12">
                         <div ng-repeat="card in opponent.deck.cards"
-                             ng-class="'col-sm-1 panel panel-primary card ' + card.element.cssClass + ' ' + card.dominatedClass">
+                             ng-class="'col-sm-1 panel panel-primary opponent-card-panel card ' + card.element.cssClass + ' ' + card.dominatedClass + ((opponent.health.current <= 0) ? ' dies':'') ">
                             <span style="font-size: 70%"><i class="glyphicon glyphicon-chevron-right"></i></span> {{ card.text }}<br>
                             <span style="font-size: 70%"><i class="glyphicon glyphicon-flash"></i></span> {{card.damage}}
                         </div>
+                    </div>
+                    <div class="col-sm-12">
+                        &nbsp; {{ opponentMessage }}
+                    </div>
+                    <div class="col-sm-12">&nbsp;
                     </div>
                     <div class="col-sm-12">
                         <div class="col-sm-2">
@@ -116,15 +133,22 @@
                     <div class="col-sm-12"><br>
                     </div>
                     <div class="col-sm-12">
+                        &nbsp; {{ playerMessage }}
+                    </div>
+                    <div class="col-sm-12">
                         <div ng-repeat="card in player.deck.cards"
-                             ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass"
+                             ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass + ((player.health.current <= 0) ? ' dies':'')"
                              ng-click="cardClicked(PAGE_SECTION_PLAYER_DECK, card)">
                             <span style="font-size: 70%"><i class="glyphicon glyphicon-chevron-right"></i></span> {{ card.text }}<br>
                             <span style="font-size: 70%"><i class="glyphicon glyphicon-flash"></i></span> {{card.damage}}
                         </div>
                     </div>
                 </div>
-                <!--<div class="panel-footer panel-primary"> Footer </div>-->
+                <div class="panel-footer panel-primary">
+                    <a ng-click="toggleTimeRunning()" class="btn btn-primary" ng-if="timeRunning"><i class="glyphicon glyphicon-pause"></i> </a>
+                    <a ng-click="toggleTimeRunning()" class="btn btn-primary" ng-if="!timeRunning"><i class="glyphicon glyphicon-play"></i> </a>
+                    <a ng-click="runTimeStepManual()" class="btn btn-primary" ng-disabled="timeRunning"><i class="glyphicon glyphicon-step-forward"></i> </a>
+                </div>
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
