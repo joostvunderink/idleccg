@@ -146,7 +146,12 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
         }
         else {
           // Apply upgrade, then destroy upgrade.
-          $scope.addLogLine("Upgraded " + card.power + " to " + (card.power + $scope.cardSelectedInCollection.power));
+          if ($scope.cardSelectedInCollection.power > 0) {
+            $scope.addLogLine("Power " + card.power + " -> " + (card.power + $scope.cardSelectedInCollection.power));
+          }
+          else {
+            $scope.addLogLine("Damage " + card.damage + " -> " + (card.damage + $scope.cardSelectedInCollection.damage));
+          }
           card.applyUpgrade($scope.cardSelectedInCollection);
           $scope.player.deck.calculateTotalPower();
           $scope.player.deck.calculateTotalDamage();
@@ -191,7 +196,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
             $scope.player.collection.unselectCards();
           }
           if (card.type === ITEM_PLAYER_UPGRADE) {
-            $scope.addLogLine('Increased health: %s', card.health);
+            $scope.addLogLine('Health ' + $scope.player.health.max + ' -> ' + ($scope.player.health.max + card.health));
             $scope.player.health.max += card.health;
             $scope.player.collection.removeCard($scope.cardSelectedInCollection);
             $scope.player.collection.unselectCards();
