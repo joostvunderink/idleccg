@@ -149,6 +149,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
           $scope.addLogLine("Upgraded " + card.power + " to " + (card.power + $scope.cardSelectedInCollection.power));
           card.applyUpgrade($scope.cardSelectedInCollection);
           $scope.player.deck.calculateTotalPower();
+          $scope.player.deck.calculateTotalDamage();
           $scope.player.collection.removeCard($scope.cardSelectedInCollection);
           $scope.player.deck.unselectCards();
           $scope.player.collection.unselectCards();
