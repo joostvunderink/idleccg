@@ -68,6 +68,7 @@
                     <button ng-click="buyBooster(4)" ng-show="gold >= boosterPrices[4]">buy</button><br>
                     {{ boosterPrices[5] }}: Booster 5 
                     <button ng-click="buyBooster(5)" ng-show="gold >= boosterPrices[5]">buy</button><br>
+                    <button ng-click="sellSelectedCard()" ng-show="cardSelectedInCollection && cardSelectedInCollection.type == 'card'">Sell card</button>
                 </div>
             </div>
             <div class="panel panel-primary">

@@ -119,6 +119,15 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     $scope.player.collection.addCard(booster);
   };
 
+  $scope.sellSelectedCard = function() {
+    var price = $scope.cardSelectedInCollection.power + $scope.cardSelectedInCollection.damage;
+    $scope.addLogLine("Sold card for " + price + " gold.");
+    $scope.gold += price;
+    $scope.player.collection.removeCard($scope.cardSelectedInCollection);
+    $scope.cardSelectedInCollection = null;
+    $scope.player.collection.unselectCards();
+  }
+
   $scope.cardClicked = function(where, card) {
     // If clicked on card in deck:
     //   If collection has selected card:
