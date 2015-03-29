@@ -73,7 +73,7 @@ function createInitialPlayerCollection() {
   });
 
   var upgradeCard = ItemFactory({
-    type: ITEM_UPGRADE,
+    type: ITEM_CARD_UPGRADE,
     power: 1,
   });
   collection.addCard(upgradeCard);

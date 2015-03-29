@@ -11,8 +11,8 @@ var ItemFactory;
     if (data.type === ITEM_CARD) {
       return CardFactory(data);
     }
-    else if (data.type === ITEM_UPGRADE) {
-      return UpgradeFactory(data);
+    else if (data.type === ITEM_CARD_UPGRADE) {
+      return CardUpgradeFactory(data);
     }
     else if (data.type === ITEM_PLAYER_UPGRADE) {
       return PlayerUpgradeFactory(data);

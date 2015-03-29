@@ -103,13 +103,13 @@ function Booster() {
     }
     if (r < 0.5) {
       return ItemFactory({
-        type: ITEM_UPGRADE,
+        type: ITEM_CARD_UPGRADE,
         power: randomPowerLevel(self.level),
       });
     }
     else if (r < 0.8) {
       return ItemFactory({
-        type: ITEM_UPGRADE,
+        type: ITEM_CARD_UPGRADE,
         damage: Math.round(Math.sqrt(randomPowerLevel(self.level))),
       });
     }

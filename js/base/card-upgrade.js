@@ -1,8 +1,8 @@
-var ITEM_UPGRADE     = 'upgrade';
+var ITEM_CARD_UPGRADE     = 'card-upgrade';
 
-function Upgrade() {
+function CardUpgrade() {
   var self      = this;
-  self.type     = ITEM_UPGRADE;
+  self.type     = ITEM_CARD_UPGRADE;
   self.power    = 0;
   self.damage   = 0;
   self.health   = 0;
@@ -33,10 +33,10 @@ function Upgrade() {
   };
 }
 
-var UpgradeFactory;
+var CardUpgradeFactory;
 (function() {
-  UpgradeFactory = function(data) {
-    var upgrade = new Upgrade();
+  CardUpgradeFactory = function(data) {
+    var upgrade = new CardUpgrade();
 
     if (data.id) {
       upgrade.id = data.id;
