@@ -115,6 +115,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
       level: level,
     });
     $scope.player.collection.addCard(booster);
+    $scope.addLogLine("Bought booster " + level + ".");
   };
 
   $scope.sellSelectedCard = function() {
@@ -193,11 +194,17 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
           console.log(card);
           if (card.type === ITEM_BOOSTER) {
             // Booster was selected and clicked again. Open it.
-            $scope.addLogLine('Opened booster');
+            $scope.addLogLine('Opened booster.');
             var cards = card.getContents();
             cards.forEach(function(card) {
               if (card.type === ITEM_CARD_UPGRADE) {
-                $scope.addLogLine('New upgrade: ' + card.text);
+                $scope.addLogLine('New card upgrade: ' + card.text + ".");
+              }
+              if (card.type === ITEM_PLAYER_UPGRADE) {
+                $scope.addLogLine('New player upgrade: ' + card.text + ".");
+              }
+              if (card.type === ITEM_CARD) {
+                $scope.addLogLine('New card: ' + card.text + ".");
               }
               $scope.player.collection.addCard(card);
             });
@@ -402,7 +409,7 @@ function initOpponents($scope) {
         maxDamage: i/2 + 1
       }),
       number: i+1,
-      goldGainedWhenPlayerWins: i * 3 + 1
+      goldGainedWhenPlayerWins: f.winGoldAmount(1, i)
     };
     $scope.opponents[0][i] = opponent;
   }

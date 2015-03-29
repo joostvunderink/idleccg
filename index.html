@@ -64,7 +64,7 @@
                             ng-click="buyBooster(index)">Booster {{ index }} ({{ boosterPrices[index] }} gold)</button>
                     </span>
 
-                    <button ng-click="sellSelectedCard()" ng-show="cardSelectedInCollection && cardSelectedInCollection.type == 'card'">Sell card</button>
+                    <button ng-click="sellSelectedCard()" ng-show="cardSelectedInCollection && cardSelectedInCollection.type == 'card'">Sell selected card</button>
                 </div>
             </div>
             <div class="panel panel-primary">
@@ -83,6 +83,7 @@
                     <button ng-click="previousOpponent()" class="change-opponent">Previous</button>
                     Opponent {{ opponent.number }}
                     <button ng-click="nextOpponent()" class="change-opponent">Next</button>
+                    Gold per win: {{ opponent.goldGainedWhenPlayerWins }}
                 </div>
                 <div class="panel-body">
                     <div class="col-sm-12">
@@ -109,7 +110,7 @@
                         </div>
                         <div class="col-sm-5">
                             <span ng-if="opponent.deck.primaryElement.name !== 'None'">
-                                Their {{ opponent.deck.primaryElement.name }} dominates our {{ opponent.deck.primaryElement.dominatedElement.name }}
+                                Their {{ opponent.deck.primaryElement.name }} dominates our {{ opponent.deck.primaryElement.dominatedElement.name }}.
                             </span>
                             <span ng-if="opponent.deck.primaryElement.name === 'None'">
                                 Their deck has no primary element.
@@ -127,8 +128,8 @@
                             Damage: <span style="font-size: 70%"><i class="glyphicon glyphicon-flash"></i></span> {{ player.deck.totalDamage }}
                         </div>
                         <div class="col-sm-5">
-                            <span ng-if="player.deck.primaryElement.name != 'None'">
-                                Our {{ player.deck.primaryElement.name }} dominates their {{ player.deck.primaryElement.dominatedElement.name }}
+                            <span ng-if="player.deck.primaryElement.name !== 'None'">
+                                Our {{ player.deck.primaryElement.name }} dominates their {{ player.deck.primaryElement.dominatedElement.name }}.
                             </span>
                             <span ng-if="player.deck.primaryElement.name === 'None'">
                                 Our deck has no primary element.
