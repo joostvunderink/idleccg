@@ -187,7 +187,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
             $scope.addLogLine('Opened booster');
             var cards = card.getContents();
             cards.forEach(function(card) {
-              if (card.type === ITEM_UPGRADE) {
+              if (card.type === ITEM_CARD_UPGRADE) {
                 $scope.addLogLine('New upgrade: ' + card.text);
               }
               $scope.player.collection.addCard(card);
