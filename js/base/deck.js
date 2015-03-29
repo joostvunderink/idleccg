@@ -127,8 +127,14 @@ function createOpponentDeck(data) {
   var deck = DeckFactory();
 
   for (var i = 0; i < data.deckSize; i++) {
-    var power = Math.floor( (Math.random() * (data.maxPower - data.minPower)) + data.minPower);
-    var damage = Math.floor( (Math.random() * (data.maxDamage - data.minDamage)) + data.minDamage);
+    var power = Math.round( data.powerAverage + data.powerStdDev * f.RandomNormalised());
+    if (power < 1) {
+      power = 1;
+    }
+    var damage = Math.round( data.damageAverage + data.damageStdDev * f.RandomNormalised());
+    if (damage < 1) {
+      damage = 1;
+    }
     var element = getRandomElement();
     var card = ItemFactory({
       type   : ITEM_CARD,

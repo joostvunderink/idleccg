@@ -403,10 +403,10 @@ function initOpponents($scope) {
       },
       deck: createOpponentDeck({
         deckSize: 3,
-        minPower: i,
-        maxPower: i+3,
-        minDamage: i/2,
-        maxDamage: i/2 + 1
+        powerAverage: 2*i,
+        powerStdDev: i,
+        damageAverage: i,
+        damageStdDev: i/3,
       }),
       number: i+1,
       goldGainedWhenPlayerWins: f.winGoldAmount(1, i)
