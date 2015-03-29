@@ -98,7 +98,7 @@ function Booster() {
     if (r < 0.2) {
       return ItemFactory({
         type: ITEM_PLAYER_UPGRADE,
-        health: randomPowerLevel(self.level),
+        health: 3 * randomPowerLevel(self.level),
       });
     }
     if (r < 0.5) {

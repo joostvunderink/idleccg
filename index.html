@@ -59,12 +59,12 @@
                     Shop
                 </div>
                 <div class="panel-body">
+                    <button ng-click="sellSelectedCard()" ng-show="cardSelectedInCollection && cardSelectedInCollection.type == 'card'">Sell selected card</button>
+
                     <span ng-repeat="index in boosterIndexes">
                         <button ng-show="gold >= boosterPrices[index]" 
                             ng-click="buyBooster(index)">Booster {{ index }} ({{ boosterPrices[index] }} gold)</button>
                     </span>
-
-                    <button ng-click="sellSelectedCard()" ng-show="cardSelectedInCollection && cardSelectedInCollection.type == 'card'">Sell selected card</button>
                 </div>
             </div>
             <div class="panel panel-primary">
