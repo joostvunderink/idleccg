@@ -21,13 +21,11 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   $scope.PAGE_SECTION_PLAYER_DECK = PAGE_SECTION_PLAYER_DECK;
   $scope.PAGE_SECTION_PLAYER_COLLECTION = PAGE_SECTION_PLAYER_COLLECTION;
 
-  $scope.boosterPrices = {
-    1: 15,
-    2: 50,
-    3: 120,
-    4: 390,
-    5: 850
-  };
+  $scope.boosterPrices = {};
+  for (var i = 1; i < 10; i++) {
+    $scope.boosterPrices[i] = f.boosterCost(i);
+  }
+  $scope.boosterIndexes = [1, 2, 3, 4, 5, 6, 7, 8];
 
   $scope.player = {
     health: {
