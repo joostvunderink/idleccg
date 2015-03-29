@@ -223,19 +223,6 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     }
   };
 
-  $scope.selectCardInDeck = function(card) {
-    $scope.player.deck.cards.forEach(function(c) {
-      c.selected = false;
-      c.selectedClass = '';
-    });
-    card.selected = true;
-    card.selectedClass = 'card-selected';
-    $scope.cardSelectedInDeck = card;
-    if ($scope.cardSelectedInDeck && $scope.cardSelectedInCollection) {
-      $scope.swapCardBetweenDeckAndCollection($scope.cardSelectedInDeck, $scope.cardSelectedInCollection);      
-    }
-  };
-
   $scope.swapCardBetweenDeckAndCollection = function(cardInDeck, cardInCollection) {
     $scope.player.deck.removeCard(cardInDeck);
     $scope.player.collection.removeCard(cardInCollection);
