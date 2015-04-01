@@ -1,58 +1,5 @@
 var ITEM_BOOSTER     = 'booster';
 
-// Probability of the number of cards per level.
-var boosterNumCardsProbabilityMap = {
-  1: {
-    1: 0,
-    2: 0.8
-  },
-  2: {
-    1: 0,
-    2: 0.7,
-    3: 0.9,
-  },
-  3: {
-    1: 0,
-    2: 0.6,
-    3: 0.85,
-    4: 0.95,
-  },
-  4: {
-    1: 0,
-    2: 0.5,
-    3: 0.8,
-    4: 0.9,
-  },
-  5: {
-    1: 0,
-    2: 0.5,
-    3: 0.8,
-    4: 0.9,
-    5: 0.96
-  },
-  6: {
-    1: 0,
-    2: 0.5,
-    3: 0.8,
-    4: 0.9,
-    5: 0.96
-  },
-  7: {
-    1: 0,
-    2: 0.5,
-    3: 0.8,
-    4: 0.9,
-    5: 0.96
-  },
-  8: {
-    1: 0,
-    2: 0.5,
-    3: 0.8,
-    4: 0.9,
-    5: 0.96
-  }
-};
-
 function Booster() {
   var self      = this;
   self.type     = ITEM_BOOSTER;
@@ -80,30 +27,12 @@ function Booster() {
   };
 
   self.determineContents = function() {
-    var numberOfCards = self.determineNumberOfCards();
+    var numberOfCards = determineNumberOfCardsInBooster(self.level);
     self.contents = [];
     for (var i = 0; i < numberOfCards; i++) {
       var card = self.createCard();
       self.contents.push(card);
     }
-  };
-
-  self.determineNumberOfCards = function() {
-    var probabilityMap = boosterNumCardsProbabilityMap[self.level];
-    var max = _.max(_.keys(probabilityMap));
-    var num;
-    var found = false;
-
-    while (!found) {
-      var tmpNum = Math.floor(Math.random() * max + 1);
-      var chance = Math.random();
-      if (chance >= probabilityMap[tmpNum]) {
-        num = tmpNum;
-        found = true;
-      }
-    }
-
-    return num;
   };
 
   self.createCard = function() {
