@@ -17,7 +17,17 @@ function getRandomOptionFromWeightedList(list) {
   throw new Error("Couldn't get random option from weighted list.");
 }
 
-var numCardsPerBoosterLevelTable = {
+function determineNumberOfItemsInBooster(level) {
+  return getRandomOptionFromWeightedList(numItemsPerBoosterLevelTable[level]).amount;
+}
+
+function createRandomItemForBoosterLevel(level) {
+  var initData = getRandomOptionFromWeightedList(itemInBoosterOfLevelTable[level]);
+  var item = ItemFactory(initData);
+  return item;
+}
+
+var numItemsPerBoosterLevelTable = {
   1: [
     {
       chance: 100,
@@ -104,6 +114,55 @@ var numCardsPerBoosterLevelTable = {
   ],
 };
 
-function determineNumberOfCardsInBooster(level) {
-  return getRandomOptionFromWeightedList(numCardsPerBoosterLevelTable[level]).amount;
-}
+var itemsInBoosterLevel1 = [
+  { chance: 100, data: { type: ITEM_CARD,           power: 1, damage: 0 } },
+  { chance:  30, data: { type: ITEM_CARD,           power: 2, damage: 0 } },
+  { chance: 100, data: { type: ITEM_CARD,           power: 0, damage: 1 } },
+  { chance:  50, data: { type: ITEM_CARD_UPGRADE,   power: 1, damage: 0 } },
+  { chance: 100, data: { type: ITEM_PLAYER_UPGRADE, health: 1 } },
+  { chance:  50, data: { type: ITEM_PLAYER_UPGRADE, health: 2 } },
+  { chance:  10, data: { type: ITEM_PLAYER_UPGRADE, health: 3 } }
+];
+
+var itemsInBoosterLevel2 = [
+  { chance:  50, data: { type: ITEM_CARD,           power: 1, damage: 0 } },
+  { chance: 100, data: { type: ITEM_CARD,           power: 2, damage: 0 } },
+  { chance:  30, data: { type: ITEM_CARD,           power: 3, damage: 0 } },
+  { chance: 100, data: { type: ITEM_CARD,           power: 0, damage: 1 } },
+  { chance:  30, data: { type: ITEM_CARD,           power: 0, damage: 2 } },
+  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   power: 0, damage: 1 } },
+  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power: 1, damage: 0 } },
+  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   power: 2, damage: 0 } },
+  { chance:  40, data: { type: ITEM_PLAYER_UPGRADE, health: 1 } },
+  { chance:  90, data: { type: ITEM_PLAYER_UPGRADE, health: 2 } },
+  { chance:  50, data: { type: ITEM_PLAYER_UPGRADE, health: 3 } },
+  { chance:  10, data: { type: ITEM_PLAYER_UPGRADE, health: 4 } }
+];
+
+var itemsInBoosterLevel3 = [
+  { chance:  60, data: { type: ITEM_CARD,           power: 2, damage: 0 } },
+  { chance: 100, data: { type: ITEM_CARD,           power: 3, damage: 0 } },
+  { chance:  30, data: { type: ITEM_CARD,           power: 4, damage: 0 } },
+  { chance: 100, data: { type: ITEM_CARD,           power: 0, damage: 1 } },
+  { chance:  30, data: { type: ITEM_CARD,           power: 0, damage: 2 } },
+  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   power: 0, damage: 1 } },
+  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   power: 1, damage: 0 } },
+  { chance:  50, data: { type: ITEM_CARD_UPGRADE,   power: 2, damage: 0 } },
+  { chance:  40, data: { type: ITEM_PLAYER_UPGRADE, health: 2 } },
+  { chance:  80, data: { type: ITEM_PLAYER_UPGRADE, health: 3 } },
+  { chance:  70, data: { type: ITEM_PLAYER_UPGRADE, health: 4 } },
+  { chance:  30, data: { type: ITEM_PLAYER_UPGRADE, health: 5 } }
+];
+
+// The data is an object which can be given to ItemFactory
+var itemInBoosterOfLevelTable = {
+  1: itemsInBoosterLevel1,
+  2: itemsInBoosterLevel2,
+  3: itemsInBoosterLevel3,
+  4: itemsInBoosterLevel1,
+  5: itemsInBoosterLevel1,
+  6: itemsInBoosterLevel1,
+  7: itemsInBoosterLevel1,
+  8: itemsInBoosterLevel1,
+  9: itemsInBoosterLevel1,
+};

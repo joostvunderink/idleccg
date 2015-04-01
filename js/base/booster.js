@@ -1,5 +1,3 @@
-var ITEM_BOOSTER     = 'booster';
-
 function Booster() {
   var self      = this;
   self.type     = ITEM_BOOSTER;
@@ -27,11 +25,11 @@ function Booster() {
   };
 
   self.determineContents = function() {
-    var numberOfCards = determineNumberOfCardsInBooster(self.level);
+    var numberOfItems = determineNumberOfItemsInBooster(self.level);
     self.contents = [];
-    for (var i = 0; i < numberOfCards; i++) {
-      var card = self.createCard();
-      self.contents.push(card);
+    for (var i = 0; i < numberOfItems; i++) {
+      var item = createRandomItemForBoosterLevel(self.level);
+      self.contents.push(item);
     }
   };
 

@@ -1,5 +1,3 @@
-var ITEM_PLAYER_UPGRADE = 'player-upgrade';
-
 function PlayerUpgrade() {
   var self      = this;
   self.type     = ITEM_PLAYER_UPGRADE;

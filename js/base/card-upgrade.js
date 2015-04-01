@@ -1,5 +1,3 @@
-var ITEM_CARD_UPGRADE     = 'card-upgrade';
-
 function CardUpgrade() {
   var self      = this;
   self.type     = ITEM_CARD_UPGRADE;

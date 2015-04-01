@@ -111,11 +111,20 @@ var DeckFactory;
 function createInitialPlayerDeck() {
   var deck = DeckFactory();
 
-  [ELEMENT_WATER, ELEMENT_AIR, ELEMENT_FIRE].forEach(function(element) {
+  [ELEMENT_AIR, ELEMENT_FIRE].forEach(function(element) {
     var card = ItemFactory({
       type   : ITEM_CARD,
       element: element,
       power  : 1,
+    });
+    deck.addCard(card);
+  });
+
+  [ELEMENT_WATER].forEach(function(element) {
+    var card = ItemFactory({
+      type   : ITEM_CARD,
+      element: element,
+      damage : 1,
     });
     deck.addCard(card);
   });
@@ -128,12 +137,12 @@ function createOpponentDeck(data) {
 
   for (var i = 0; i < data.deckSize; i++) {
     var power = Math.round( data.powerAverage + data.powerStdDev * f.RandomNormalised());
-    if (power < 1) {
-      power = 1;
+    if (power < 0) {
+      power = 0;
     }
     var damage = Math.round( data.damageAverage + data.damageStdDev * f.RandomNormalised());
-    if (damage < 1) {
-      damage = 1;
+    if (damage < 0) {
+      damage = 0;
     }
     var element = getRandomElement();
     var card = ItemFactory({

@@ -63,11 +63,20 @@ var CollectionFactory;
 function createInitialPlayerCollection() {
   var collection = CollectionFactory();
 
-  [ELEMENT_EARTH, ELEMENT_FIRE].forEach(function(element) {
+  [ELEMENT_FIRE].forEach(function(element) {
     var card = ItemFactory({
       type   : ITEM_CARD,
       element: element,
       power  : 1
+    });
+    collection.addCard(card);
+  });
+
+  [ELEMENT_EARTH].forEach(function(element) {
+    var card = ItemFactory({
+      type   : ITEM_CARD,
+      element: element,
+      damage  : 1
     });
     collection.addCard(card);
   });

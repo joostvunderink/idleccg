@@ -367,7 +367,6 @@ function setAfterGamePause($scope) {
 function resetGame($scope) {
   $scope.player.health.current = $scope.player.health.max;
   $scope.opponent.health.current = $scope.opponent.health.max;
-  // giveOpponentRandomDeck($scope, 3);
   initOpponents($scope);
   $scope.setOpponent();
   calculatePowers($scope);
@@ -379,14 +378,6 @@ function calculatePowers($scope) {
   $scope.player.deck.calculateAdjustedPower($scope.opponent.deck.primaryElement);
   $scope.player.collection.calculateAdjustedPower($scope.opponent.deck.primaryElement);
   $scope.opponent.deck.calculateAdjustedPower($scope.player.deck.primaryElement);
-}
-
-function giveOpponentRandomDeck($scope, numCards) {
-  $scope.opponent.deck = createOpponentDeck({
-    deckSize: numCards,
-    minPower: 0,
-    maxPower: 2
-  });
 }
 
 function initOpponents($scope) {
@@ -404,9 +395,9 @@ function initOpponents($scope) {
       deck: createOpponentDeck({
         deckSize: 3,
         powerAverage: 2*i,
-        powerStdDev: i,
+        powerStdDev: i+1,
         damageAverage: i,
-        damageStdDev: i/3,
+        damageStdDev: i/3+1,
       }),
       number: i+1,
       goldGainedWhenPlayerWins: f.winGoldAmount(1, i)

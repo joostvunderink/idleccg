@@ -1,5 +1,3 @@
-var ITEM_CARD        = 'card';
-
 function Card() { 
   var self      = this;
   self.type     = ITEM_CARD;
@@ -61,15 +59,9 @@ var CardFactory;
     if (data.power) {
       card.power = data.power;
     }
-    else {
-      card.power = 1;
-    }
 
     if (data.damage) {
       card.damage = data.damage;
-    }
-    else {
-      card.damage = 1;
     }
 
     card.updateDisplayProperties();
