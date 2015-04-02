@@ -156,3 +156,28 @@ function createOpponentDeck(data) {
 
   return deck;
 }
+
+function createOpponentCollection(data) {
+  var collection = CollectionFactory();
+
+  for (var i = 0; i < data.collectionSize; i++) {
+    var power = Math.round( data.powerAverage + data.powerStdDev * f.RandomNormalised());
+    if (power < 0) {
+      power = 0;
+    }
+    var damage = Math.round( data.damageAverage + data.damageStdDev * f.RandomNormalised());
+    if (damage < 0) {
+      damage = 0;
+    }
+    var element = getRandomElement();
+    var card = ItemFactory({
+      type   : ITEM_CARD,
+      element: element,
+      power  : power,
+      damage : damage
+    });
+    collection.addCard(card);
+  }
+
+  return collection;
+}

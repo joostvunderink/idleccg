@@ -18,61 +18,6 @@ var _;
 
 cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($scope, $interval, lodash) {
   _ = lodash;
-  $scope.PAGE_SECTION_PLAYER_DECK = PAGE_SECTION_PLAYER_DECK;
-  $scope.PAGE_SECTION_PLAYER_COLLECTION = PAGE_SECTION_PLAYER_COLLECTION;
-
-  $scope.boosterPrices = {};
-  for (var i = 1; i < 10; i++) {
-    $scope.boosterPrices[i] = f.boosterCost(i);
-  }
-  $scope.boosterIndexes = [1, 2, 3, 4, 5, 6, 7, 8];
-
-  $scope.player = {
-    health: {
-      max: 12,
-      current: 12,
-    },
-    deck: createInitialPlayerDeck(),
-    collection: createInitialPlayerCollection(),
-  };
-
-  initOpponents($scope);
-
-  $scope.level = 0;
-  $scope.opponentNum = 0;
-
-
-  $scope.gold = 0;
-  $scope.log = [];
-  $scope.maxLogLines = 10;
-
-  $scope.timeRunning = true;
-  $scope.afterGamePauze = 0;
-  $scope.playerMessage = "";
-  $scope.opponentMessage = "";
-
-
-  $scope.gameData = {
-    startTime         : new Date().getTime(),
-    previousUpdateTime: new Date().getTime(),
-    totalGames        : 0,
-    totalWins         : 0,
-    totalTurns        : 0,
-    score             : 0.0,
-    totalScore        : 0.0,
-    scorePerSecond    : 1.0,
-    timeSinceStart    : 0.0,
-    scorePerClick     : 1,
-    boughtObjects     : {
-      small : 0,
-      medium: 0,
-      large : 0,
-    },
-  };
-
-  $scope.currentLocation = {
-    level: 1
-  };
 
   $interval(function() {
     if ($scope.timeRunning) {
@@ -275,8 +220,68 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     resetGame($scope);
   };
 
-  $scope.setOpponent();
-  calculatePowers($scope);
+  $scope.initApp = function() {
+    $scope.PAGE_SECTION_PLAYER_DECK = PAGE_SECTION_PLAYER_DECK;
+    $scope.PAGE_SECTION_PLAYER_COLLECTION = PAGE_SECTION_PLAYER_COLLECTION;
+
+    $scope.boosterPrices = {};
+    for (var i = 1; i < 10; i++) {
+      $scope.boosterPrices[i] = f.boosterCost(i);
+    }
+    $scope.boosterIndexes = [1, 2, 3, 4, 5, 6, 7, 8];
+
+    $scope.player = {
+      health: {
+        max: 12,
+        current: 12,
+      },
+      deck: createInitialPlayerDeck(),
+      collection: createInitialPlayerCollection(),
+    };
+
+    $scope.level = 0;
+    $scope.opponentNum = 0;
+
+    $scope.gold = 0;
+    $scope.log = [];
+    $scope.maxLogLines = 10;
+
+    $scope.timeRunning = true;
+    $scope.afterGamePauze = 0;
+    $scope.playerMessage = "";
+    $scope.opponentMessage = "";
+
+    $scope.gameData = {
+      startTime         : new Date().getTime(),
+      previousUpdateTime: new Date().getTime(),
+      totalGames        : 0,
+      totalWins         : 0,
+      totalTurns        : 0,
+      score             : 0.0,
+      totalScore        : 0.0,
+      scorePerSecond    : 1.0,
+      timeSinceStart    : 0.0,
+      scorePerClick     : 1,
+      boughtObjects     : {
+        small : 0,
+        medium: 0,
+        large : 0,
+      },
+    };
+
+    $scope.currentLocation = {
+      level: 1
+    };
+
+    initOpponents($scope);
+    $scope.setOpponent();
+    randomiseOpponentDeck($scope, 3);
+    calculatePowers($scope);
+  };
+
+
+  $scope.initApp();
+
 }]);
 
 function updateStatus($scope) {
@@ -367,9 +372,24 @@ function setAfterGamePause($scope) {
 function resetGame($scope) {
   $scope.player.health.current = $scope.player.health.max;
   $scope.opponent.health.current = $scope.opponent.health.max;
-  initOpponents($scope);
-  $scope.setOpponent();
+  randomiseOpponentDeck($scope, 3);
   calculatePowers($scope);
+}
+
+function randomiseOpponentDeck($scope, size) {
+  console.log($scope.opponent.deck);
+  var len = $scope.opponent.deck.cards.length;
+  for (var i = len - 1; i >= 0; i--) {
+    var card = $scope.opponent.deck.cards[i];
+    console.log("Removing card:"); console.log(card);
+    $scope.opponent.collection.addCard(card);
+    $scope.opponent.deck.removeCard(card);
+  };
+
+  for (var i = 0; i < size; i++) {
+    var card = $scope.opponent.collection.removeRandomCard();
+    $scope.opponent.deck.addCard(card);
+  }
 }
 
 function calculatePowers($scope) {
@@ -392,8 +412,16 @@ function initOpponents($scope) {
         max: health,
         current: health,
       },
-      deck: createOpponentDeck({
-        deckSize: 3,
+      // deck: createOpponentDeck({
+      //   deckSize: 3,
+      //   powerAverage: 2*i,
+      //   powerStdDev: i+1,
+      //   damageAverage: i,
+      //   damageStdDev: i/3+1,
+      // }),
+      deck: new Deck(),
+      collection: createOpponentCollection({
+        collectionSize: 8,
         powerAverage: 2*i,
         powerStdDev: i+1,
         damageAverage: i,

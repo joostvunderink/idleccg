@@ -55,6 +55,8 @@
                     </div>
                     <br>
                     <p>Gold: {{ gold }}</p>
+
+                    <p>Opponent collection: <span ng-repeat="card in opponent.collection.cards">{{ card.element.name }}, </span></p>
                 </div>
             </div>
             <div class="panel panel-primary">

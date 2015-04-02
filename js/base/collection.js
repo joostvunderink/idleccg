@@ -12,6 +12,13 @@ function Collection() {
     _.remove(this.cards, { id: card.id });
   };
 
+  self.removeRandomCard = function() {
+    var index = parseInt(Math.random() * self.cards.length);
+    var card = self.cards[index];
+    _.remove(this.cards, { id: card.id });
+    return card;
+  };
+
   self.unselectCards = function() {
     self.cards.forEach(function(c) {
       c.setSelected(false);
