@@ -100,6 +100,14 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
         else {
           if ($scope.cardSelectedInCollection.type === ITEM_CARD_UPGRADE) {
             // Apply upgrade, then destroy upgrade.
+            // Upgrades only work if the current value of the upgraded property is already > 0.
+            
+            if ($scope.cardSelectedInCollection.power > 0 && card.power === 0) {
+              return;
+            }
+            if ($scope.cardSelectedInCollection.damage > 0 && card.damage === 0) {
+              return;
+            }
             if ($scope.cardSelectedInCollection.power > 0) {
               $scope.addLogLine("Power " + card.power + " -> " + (card.power + $scope.cardSelectedInCollection.power));
             }
@@ -232,8 +240,8 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
     $scope.player = {
       health: {
-        max: 12,
-        current: 12,
+        max: 9,
+        current: 9,
       },
       deck: createInitialPlayerDeck(),
       collection: createInitialPlayerCollection(),
