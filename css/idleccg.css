@@ -8,10 +8,7 @@ div.container {
 }
 
 .card {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 0px 0px 0px 0px;
     font-weight: bold;
     font-size: 120%;
     border-width: 3px;
@@ -21,28 +18,65 @@ div.container {
     background-position: 33px 63px;
     background-repeat: no-repeat;
     background-blend-mode: overlay;
-    height: 100px;
+    height: 180px;
+    width: 120px;
+}
+
+.card-top {
+  height: 20px;
+  margin: 2px 2px 2px 2px;
+  padding: 1px 1px 1px 1px;
+  border: 1px solid gray;
+  text-align: left;
+  background-color: #fff; 
+  color: black;
+  font-size: 70%;
+}
+
+.card-image {
+  height: 80px;
+  margin: 2px 2px 2px 2px;
+  padding: 0px 0px 0px 0px;
+  border: 1px solid gray;
+}
+
+.card-name {
+  text-align: left;
+  font-weight: normal;
+}
+
+.card-element {
+  text-align: right;
+}
+
+.card-bottom {
+  height: 66px;
+  margin: 2px 2px 2px 2px;
+  padding: 4px 4px 4px 4px;
+  border: 1px solid gray;
+  background-color: #fff; 
+  color: black;
 }
 
 div.card-water {
   background-color: #4682B4;
   color: #fff;
-  background-image: url("../img/rounded-glossy-black/icon_131.png");
+  /*background-image: url("../img/rounded-glossy-black/icon_131.png");*/
 }
 div.card-air {
   background-color: #04B4AE;
   color: #fff;
-  background-image: url("../img/rounded-glossy-black/lightning2-sc48.png");
+  /*background-image: url("../img/rounded-glossy-black/lightning2-sc48.png");*/
 }
 div.card-earth {
   background-color: #32CD32;
   color: #fff;
-  background-image: url("../img/rounded-glossy-black/leaf7-sc44.png");
+  /*background-image: url("../img/rounded-glossy-black/leaf7-sc44.png");*/
 }
 div.card-fire {
   background-color: #FF6347;
   color: #fff;
-  background-image: url("../img/rounded-glossy-black/fire1.png");
+  /*background-image: url("../img/rounded-glossy-black/fire1.png");*/
 }
 
 div.card-upgrade {
@@ -66,6 +100,16 @@ div.card-dominated {
 
 div.card-selected {
   border-color: red;
+}
+
+.card-power {
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.card-damage {
+  text-align: left;
+  vertical-align: bottom;
 }
 
 .logline {

@@ -94,8 +94,24 @@
                     <div class="col-sm-12">
                         <div ng-repeat="card in opponent.deck.cards"
                              ng-class="'col-sm-1 panel panel-primary opponent-card-panel card ' + card.element.cssClass + ' ' + card.dominatedClass + ((opponent.health.current <= 0) ? ' dies':'') ">
-                            <span style="font-size: 70%"><i class="glyphicon glyphicon-chevron-right"></i></span> {{ card.text }}<br>
-                            <span style="font-size: 70%"><i class="glyphicon glyphicon-flash"></i></span> {{card.damage}}
+                            <div class="card-top">
+                                <img class="card-element" ng-if="card.element.name === 'Water'" src="img/rounded-glossy-black/icon_131.png" width="16" height="16">
+                                <img class="card-element" ng-if="card.element.name === 'Air'" src="img/rounded-glossy-black/lightning2-sc48.png" width="16" height="16">
+                                <img class="card-element" ng-if="card.element.name === 'Earth'" src="img/rounded-glossy-black/leaf7-sc44.png" width="16" height="16">
+                                <img class="card-element" ng-if="card.element.name === 'Fire'" src="img/rounded-glossy-black/fire1.png" width="16" height="16">
+                                <span class="card-name">{{ card.name }}</span>
+                            </div>
+                            <div class="card-image">
+                                <img ng-src="img/card/{{card.imageFile}}" height="78" width="108">
+                            </div>
+                            <div class="card-bottom">
+                                <div class="card-power">
+                                    <img src="img/icon-fist-2.png" height="16" width="16" /> {{ card.power }}
+                                </div>
+                                <div class="card-damage">
+                                    <img src="img/icon-sword.png" height="16" width="16" /> {{ card.damage }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -150,8 +166,27 @@
                         <div ng-repeat="card in player.deck.cards"
                              ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.dominatedClass + ' ' + card.selectedClass + ((player.health.current <= 0) ? ' dies':'')"
                              ng-click="cardClicked(PAGE_SECTION_PLAYER_DECK, card)">
-                            <span style="font-size: 70%"><i class="glyphicon glyphicon-chevron-right"></i></span> {{ card.text }}<br>
-                            <span style="font-size: 70%"><i class="glyphicon glyphicon-flash"></i></span> {{card.damage}}
+
+                            <div class="card-top">
+                                <img class="card-element" ng-if="card.element.name === 'Water'" src="img/rounded-glossy-black/icon_131.png" width="16" height="16">
+                                <img class="card-element" ng-if="card.element.name === 'Air'" src="img/rounded-glossy-black/lightning2-sc48.png" width="16" height="16">
+                                <img class="card-element" ng-if="card.element.name === 'Earth'" src="img/rounded-glossy-black/leaf7-sc44.png" width="16" height="16">
+                                <img class="card-element" ng-if="card.element.name === 'Fire'" src="img/rounded-glossy-black/fire1.png" width="16" height="16">
+                                <span class="card-name">{{ card.name }}</span>
+                            </div>
+                            <div class="card-image">
+                                <img ng-src="img/card/{{card.imageFile}}" height="78" width="108">
+                            </div>
+                            <div class="card-bottom">
+                                <div class="card-power">
+                                    <img src="img/icon-fist-2.png" height="16" width="16" /> {{ card.power }}
+                                </div>
+                                <div class="card-damage">
+                                    <img src="img/icon-sword.png" height="16" width="16" /> {{ card.damage }}
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>

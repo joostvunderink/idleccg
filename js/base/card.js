@@ -4,6 +4,8 @@ function Card() {
   self.element  = null;
   self.power    = 0;
   self.damage   = 0;
+  self.name     = 'card name';
+  self.imageFile = 'red-dragon-1.jpg';
   self.text     = '';
   self.cssClass = '';
 
@@ -54,6 +56,26 @@ var CardFactory;
     }
     else {
       card.element = getRandomElement();
+    }
+
+    if (card.element === ELEMENT_AIR) {
+      card.name = 'Air Elemental';
+      card.imageFile = 'air-elemental-1.jpg';
+    }
+
+    if (card.element === ELEMENT_FIRE) {
+      card.name = 'Red Dragon';
+      card.imageFile = 'red-dragon-1.jpg';
+    }
+
+    if (card.element === ELEMENT_WATER) {
+      card.name = 'Sea Serpent';
+      card.imageFile = 'sea-serpent-1.jpg';
+    }
+
+    if (card.element === ELEMENT_EARTH) {
+      card.name = 'Earth Elemental';
+      card.imageFile = 'earth-elemental-1.jpg';
     }
 
     if (data.power) {

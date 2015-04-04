@@ -1,0 +1,18 @@
+<div class="card-top">
+    <img class="card-element" ng-if="card.element.name === 'Water'" src="img/rounded-glossy-black/icon_131.png" width="16" height="16">
+    <img class="card-element" ng-if="card.element.name === 'Air'" src="img/rounded-glossy-black/lightning2-sc48.png" width="16" height="16">
+    <img class="card-element" ng-if="card.element.name === 'Earth'" src="img/rounded-glossy-black/leaf7-sc44.png" width="16" height="16">
+    <img class="card-element" ng-if="card.element.name === 'Fire'" src="img/rounded-glossy-black/fire1.png" width="16" height="16">
+    <span class="card-name">{{ card.name }}</span>
+</div>
+<div class="card-image">
+    <img ng-src="img/card/{{card.imageFile}}" height="78" width="108">
+</div>
+<div class="card-bottom">
+    <div class="card-power">
+        <img src="img/icon-fist-2.png" height="16" width="16" /> {{ card.power }}
+    </div>
+    <div class="card-damage">
+        <img src="img/icon-sword.png" height="16" width="16" /> {{ card.damage }}
+    </div>
+</div>
