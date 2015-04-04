@@ -48,6 +48,14 @@ var CardUpgradeFactory;
       upgrade.damage = data.damage;
     }
 
+    if (data.powerAverage) {
+      upgrade.power = f.RandomGaussianAmount(data.powerAverage, data.powerStdDev);
+    }
+
+    if (data.damageAverage) {
+      upgrade.damage = f.RandomGaussianAmount(data.damageAverage, data.damageStdDev);
+    }
+
     upgrade.updateDisplayProperties();
     return upgrade;
 };

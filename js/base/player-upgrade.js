@@ -39,6 +39,10 @@ var PlayerUpgradeFactory;
       playerUpgrade.health = data.health;
     }
 
+    if (data.healthAverage) {
+      playerUpgrade.health = f.RandomGaussianAmount(data.healthAverage, data.healthStdDev);
+    }
+
     playerUpgrade.updateDisplayProperties();
     return playerUpgrade;
 };

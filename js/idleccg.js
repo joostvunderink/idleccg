@@ -229,6 +229,8 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   };
 
   $scope.initApp = function() {
+    $scope.gold = 0;
+
     $scope.PAGE_SECTION_PLAYER_DECK = PAGE_SECTION_PLAYER_DECK;
     $scope.PAGE_SECTION_PLAYER_COLLECTION = PAGE_SECTION_PLAYER_COLLECTION;
 
@@ -250,7 +252,6 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     $scope.level = 0;
     $scope.opponentNum = 0;
 
-    $scope.gold = 0;
     $scope.log = [];
     $scope.maxLogLines = 10;
 
@@ -385,11 +386,9 @@ function resetGame($scope) {
 }
 
 function randomiseOpponentDeck($scope, size) {
-  console.log($scope.opponent.deck);
   var len = $scope.opponent.deck.cards.length;
   for (var i = len - 1; i >= 0; i--) {
     var card = $scope.opponent.deck.cards[i];
-    console.log("Removing card:"); console.log(card);
     $scope.opponent.collection.addCard(card);
     $scope.opponent.deck.removeCard(card);
   };

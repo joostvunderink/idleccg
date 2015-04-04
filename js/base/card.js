@@ -64,6 +64,14 @@ var CardFactory;
       card.damage = data.damage;
     }
 
+    if (data.powerAverage) {
+      card.power = f.RandomGaussianAmount(data.powerAverage, data.powerStdDev);
+    }
+
+    if (data.damageAverage) {
+      card.damage = f.RandomGaussianAmount(data.damageAverage, data.damageStdDev);
+    }
+
     card.updateDisplayProperties();
     return card;
 };

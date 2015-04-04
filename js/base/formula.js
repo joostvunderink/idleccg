@@ -104,6 +104,14 @@ function Formula() {
   self.RandomNormalised = function() {
     return self.ziggurat.nextGaussian();
   };
+
+  self.RandomGaussianAmount = function(average, stddev) {
+    var ret = Math.floor(average + self.RandomNormalised() * stddev);
+    if (ret <= 0) {
+      ret = 1;
+    }
+    return ret;
+  };
 }
 
 var f = new Formula();
