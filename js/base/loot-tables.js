@@ -115,74 +115,96 @@ var numItemsPerBoosterLevelTable = {
 };
 
 var itemsInBoosterLevel1 = [
-  { chance: 100, data: { type: ITEM_CARD,           power: 1, damage: 0 } },
-  { chance:  60, data: { type: ITEM_CARD,           power: 2, damage: 0 } },
-  { chance:  30, data: { type: ITEM_CARD,           power: 3, damage: 0 } },
-  { chance: 100, data: { type: ITEM_CARD,           power: 0, damage: 1 } },
-  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power: 1, damage: 0 } },
-  { chance:  50, data: { type: ITEM_CARD_UPGRADE,   power: 0, damage: 1 } },
-  { chance: 100, data: { type: ITEM_PLAYER_UPGRADE, health: 1 } },
-  { chance:  50, data: { type: ITEM_PLAYER_UPGRADE, health: 2 } },
-  { chance:  10, data: { type: ITEM_PLAYER_UPGRADE, health: 3 } }
+  { chance: 100, data: { type: ITEM_CARD,           power : 1 } },
+  { chance:  60, data: { type: ITEM_CARD,           power : 2 } },
+  { chance:  30, data: { type: ITEM_CARD,           power : 3 } },
+  { chance: 100, data: { type: ITEM_CARD,           damage: 1 } },
+  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power : 1 } },
+  { chance:  50, data: { type: ITEM_CARD_UPGRADE,   damage: 1 } },
+  { chance: 250, data: { type: ITEM_PLAYER_UPGRADE, health: [2, 1] } },
 ];
 
 var itemsInBoosterLevel2 = [
-  { chance:  50, data: { type: ITEM_CARD,           power: 3, damage: 0 } },
-  { chance:  90, data: { type: ITEM_CARD,           power: 4, damage: 0 } },
-  { chance:  90, data: { type: ITEM_CARD,           power: 5, damage: 0 } },
-  { chance:  60, data: { type: ITEM_CARD,           power: 6, damage: 0 } },
-  { chance:  30, data: { type: ITEM_CARD,           power: 7, damage: 0 } },
-  { chance: 100, data: { type: ITEM_CARD,           power: 0, damage: 2 } },
-  { chance:  60, data: { type: ITEM_CARD,           power: 0, damage: 3 } },
-  { chance:  30, data: { type: ITEM_CARD,           power: 0, damage: 4 } },
-  { chance:  50, data: { type: ITEM_CARD_UPGRADE,   power: 0, damage: 1 } },
-  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power: 1, damage: 0 } },
-  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   power: 2, damage: 0 } },
-  { chance:  40, data: { type: ITEM_PLAYER_UPGRADE, health: 1 } },
-  { chance:  90, data: { type: ITEM_PLAYER_UPGRADE, health: 2 } },
-  { chance:  50, data: { type: ITEM_PLAYER_UPGRADE, health: 3 } },
-  { chance:  10, data: { type: ITEM_PLAYER_UPGRADE, health: 4 } }
+  { chance:  50, data: { type: ITEM_CARD,           power : 3 } },
+  { chance:  90, data: { type: ITEM_CARD,           power : 4 } },
+  { chance:  90, data: { type: ITEM_CARD,           power : 5 } },
+  { chance:  60, data: { type: ITEM_CARD,           power : 6 } },
+  { chance:  30, data: { type: ITEM_CARD,           power : 7 } },
+  { chance: 100, data: { type: ITEM_CARD,           damage: 2 } },
+  { chance:  60, data: { type: ITEM_CARD,           damage: 3 } },
+  { chance:  30, data: { type: ITEM_CARD,           damage: 4 } },
+  { chance:  50, data: { type: ITEM_CARD_UPGRADE,   damage: 1 } },
+  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power : 1 } },
+  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   power : 2 } },
+  { chance: 250, data: { type: ITEM_PLAYER_UPGRADE, health: [3, 1] } },
 ];
 
 var itemsInBoosterLevel3 = [
-  { chance:  20, data: { type: ITEM_CARD,           power: 5, damage: 0 } },
-  { chance:  60, data: { type: ITEM_CARD,           power: 6, damage: 0 } },
-  { chance: 100, data: { type: ITEM_CARD,           power: 7, damage: 0 } },
-  { chance:  50, data: { type: ITEM_CARD,           power: 8, damage: 0 } },
-  { chance:  30, data: { type: ITEM_CARD,           power: 9, damage: 0 } },
-  { chance: 100, data: { type: ITEM_CARD,           power: 0, damage: 3 } },
-  { chance:  30, data: { type: ITEM_CARD,           power: 0, damage: 4 } },
-  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   power: 0, damage: 1 } },
-  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   power: 1, damage: 0 } },
-  { chance:  50, data: { type: ITEM_CARD_UPGRADE,   power: 2, damage: 0 } },
-  { chance:  40, data: { type: ITEM_PLAYER_UPGRADE, health: 2 } },
-  { chance:  80, data: { type: ITEM_PLAYER_UPGRADE, health: 3 } },
-  { chance:  70, data: { type: ITEM_PLAYER_UPGRADE, health: 4 } },
-  { chance:  30, data: { type: ITEM_PLAYER_UPGRADE, health: 5 } }
+  { chance:  20, data: { type: ITEM_CARD,           power : 5 } },
+  { chance:  60, data: { type: ITEM_CARD,           power : 6 } },
+  { chance: 100, data: { type: ITEM_CARD,           power : 7 } },
+  { chance:  50, data: { type: ITEM_CARD,           power : 8 } },
+  { chance:  30, data: { type: ITEM_CARD,           power : 9 } },
+  { chance: 100, data: { type: ITEM_CARD,           damage: 3 } },
+  { chance:  30, data: { type: ITEM_CARD,           damage: 4 } },
+  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   damage: 1 } },
+  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   power : 1 } },
+  { chance:  50, data: { type: ITEM_CARD_UPGRADE,   power : 2 } },
+  { chance: 250, data: { type: ITEM_PLAYER_UPGRADE, health: [5, 1] } },
 ];
 
 var itemsInBoosterLevel4 = [
-  { chance:  40, data: { type: ITEM_CARD,           powerAverage: 8, powerStdDev: 2, damage: 0 } },
-  { chance: 100, data: { type: ITEM_CARD,           powerAverage: 10, powerStdDev: 3, damage: 0 } },
-  { chance: 100, data: { type: ITEM_CARD,           power: 0, damageAverage: 4, damageStdDev: 2 } },
-  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   power: 0, damage: 1 } },
-  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   power: 0, damage: 2 } },
-  { chance:  20, data: { type: ITEM_CARD_UPGRADE,   power: 2, damage: 0 } },
-  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power: 3, damage: 0 } },
-  { chance:  40, data: { type: ITEM_CARD_UPGRADE,   power: 4, damage: 0 } },
-  { chance:  40, data: { type: ITEM_PLAYER_UPGRADE, healthAverage: 5, healthStdDev: 1 } },
+  { chance:  40, data: { type: ITEM_CARD,           power : [ 8, 1] } },
+  { chance: 100, data: { type: ITEM_CARD,           power : [10, 2] } },
+  { chance: 100, data: { type: ITEM_CARD,           damage: [ 4, 1] } },
+  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   damage: 1 } },
+  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   damage: 2 } },
+  { chance:  20, data: { type: ITEM_CARD_UPGRADE,   power : 2 } },
+  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power : 3 } },
+  { chance:  40, data: { type: ITEM_CARD_UPGRADE,   power : 4 } },
+  { chance: 250, data: { type: ITEM_PLAYER_UPGRADE, health: [8, 1] } },
 ];
 
 var itemsInBoosterLevel5 = [
-  { chance:  40, data: { type: ITEM_CARD,           powerAverage: 11, powerStdDev: 3, damage: 0 } },
-  { chance: 100, data: { type: ITEM_CARD,           powerAverage: 15, powerStdDev: 4, damage: 0 } },
-  { chance: 100, data: { type: ITEM_CARD,           power: 0, damageAverage: 6, damageStdDev: 2 } },
-  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   power: 0, damage: 2 } },
-  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   power: 0, damage: 3 } },
-  { chance:  20, data: { type: ITEM_CARD_UPGRADE,   power: 4, damage: 0 } },
-  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power: 5, damage: 0 } },
-  { chance:  40, data: { type: ITEM_CARD_UPGRADE,   power: 6, damage: 0 } },
-  { chance:  40, data: { type: ITEM_PLAYER_UPGRADE, healthAverage: 7, healthStdDev: 2 } },
+  { chance:  40, data: { type: ITEM_CARD,           power : [11, 3] } },
+  { chance: 100, data: { type: ITEM_CARD,           power : [15, 4] } },
+  { chance: 100, data: { type: ITEM_CARD,           damage: [ 6, 2] } },
+  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   damage: 2 } },
+  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   damage: 3 } },
+  { chance:  20, data: { type: ITEM_CARD_UPGRADE,   power : 4 } },
+  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power : 5 } },
+  { chance:  40, data: { type: ITEM_CARD_UPGRADE,   power : 6 } },
+  { chance: 250, data: { type: ITEM_PLAYER_UPGRADE, health: [12, 2] } },
+];
+
+var itemsInBoosterLevel6 = [
+  { chance:  40, data: { type: ITEM_CARD,           power : [20, 4] } },
+  { chance: 100, data: { type: ITEM_CARD,           power : [30, 6] } },
+  { chance: 100, data: { type: ITEM_CARD,           damage: [10, 3] } },
+  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   damage: 3 } },
+  { chance:  30, data: { type: ITEM_CARD_UPGRADE,   damage: 4 } },
+  { chance:  20, data: { type: ITEM_CARD_UPGRADE,   power : 5 } },
+  { chance:  80, data: { type: ITEM_CARD_UPGRADE,   power : 6 } },
+  { chance:  40, data: { type: ITEM_CARD_UPGRADE,   power : 7 } },
+  { chance: 250, data: { type: ITEM_PLAYER_UPGRADE, health: [20, 2] } },
+];
+
+var itemsInBoosterLevel7 = [
+  { chance:  40, data: { type: ITEM_CARD,           power : [40, 5] } },
+  { chance: 100, data: { type: ITEM_CARD,           power : [75, 8] } },
+  { chance: 100, data: { type: ITEM_CARD,           damage: [17, 4] } },
+  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   damage: [ 8, 2] } },
+  { chance: 140, data: { type: ITEM_CARD_UPGRADE,   power : [13, 3] } },
+  { chance: 250, data: { type: ITEM_PLAYER_UPGRADE, health: [45, 5] } },
+];
+
+var itemsInBoosterLevel8 = [
+  { chance:  40, data: { type: ITEM_CARD,           power : [ 90,  9] } },
+  { chance: 100, data: { type: ITEM_CARD,           power : [110, 12] } },
+  { chance: 100, data: { type: ITEM_CARD,           damage: [ 33,  6] } },
+  { chance:  60, data: { type: ITEM_CARD_UPGRADE,   damage: [ 15,  3] } },
+  { chance: 140, data: { type: ITEM_CARD_UPGRADE,   power : [ 35,  5] } },
+  { chance: 250, data: { type: ITEM_PLAYER_UPGRADE, health: [ 90,  8] } },
 ];
 
 // The data is an object which can be given to ItemFactory
@@ -192,8 +214,7 @@ var itemInBoosterOfLevelTable = {
   3: itemsInBoosterLevel3,
   4: itemsInBoosterLevel4,
   5: itemsInBoosterLevel5,
-  6: itemsInBoosterLevel1,
-  7: itemsInBoosterLevel1,
-  8: itemsInBoosterLevel1,
-  9: itemsInBoosterLevel1,
+  6: itemsInBoosterLevel6,
+  7: itemsInBoosterLevel7,
+  8: itemsInBoosterLevel8,
 };
