@@ -41,19 +41,21 @@ var CardUpgradeFactory;
     }
 
     if (data.power) {
-      upgrade.power = data.power;
+      if (typeof(data.power) === 'number') {
+        upgrade.power = data.power;
+      }
+      else {
+        upgrade.power = f.RandomGaussianAmount(data.power[0], data.power[1]);
+      }
     }
 
     if (data.damage) {
-      upgrade.damage = data.damage;
-    }
-
-    if (data.powerAverage) {
-      upgrade.power = f.RandomGaussianAmount(data.powerAverage, data.powerStdDev);
-    }
-
-    if (data.damageAverage) {
-      upgrade.damage = f.RandomGaussianAmount(data.damageAverage, data.damageStdDev);
+      if (typeof(data.damage) === 'number') {
+        upgrade.damage = data.damage;
+      }
+      else {
+        upgrade.damage = f.RandomGaussianAmount(data.damage[0], data.damage[1]);
+      }
     }
 
     upgrade.updateDisplayProperties();
