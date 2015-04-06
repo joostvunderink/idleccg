@@ -160,24 +160,30 @@ function createOpponentDeck(data) {
 function createOpponentCollection(data) {
   var collection = CollectionFactory();
 
+  var numCardsWithDamage = Math.floor(data.collectionSize / 3);
+
   for (var i = 0; i < data.collectionSize; i++) {
-    var power = Math.round( data.powerAverage + data.powerStdDev * f.RandomNormalised());
-    if (power < 0) {
-      power = 0;
-    }
-    var damage = Math.round( data.damageAverage + data.damageStdDev * f.RandomNormalised());
-    if (damage < 0) {
-      damage = 0;
-    }
     var element = getRandomElement();
     var card = ItemFactory({
       type   : ITEM_CARD,
       element: element,
-      power  : power,
-      damage : damage
     });
+    if (i <= numCardsWithDamage) {
+      card.power = Math.round( data.powerAverage + data.powerStdDev * f.RandomNormalised());
+      if (card.power < 1) {
+        card.power = 1;
+      }
+    }
+    else {
+      card.damage = Math.round( data.damageAverage + data.damageStdDev * f.RandomNormalised());
+      if (card.damage < 1) {
+        card.damage = 1;
+      }
+    }
     collection.addCard(card);
   }
 
   return collection;
 }
+
+
