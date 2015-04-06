@@ -61,41 +61,47 @@ div.container {
 div.card-water {
   background-color: #4682B4;
   color: #fff;
-  /*background-image: url("../img/rounded-glossy-black/icon_131.png");*/
 }
 div.card-air {
   background-color: #04B4AE;
   color: #fff;
-  /*background-image: url("../img/rounded-glossy-black/lightning2-sc48.png");*/
 }
 div.card-earth {
   background-color: #32CD32;
   color: #fff;
-  /*background-image: url("../img/rounded-glossy-black/leaf7-sc44.png");*/
 }
 div.card-fire {
   background-color: #FF6347;
   color: #fff;
-  /*background-image: url("../img/rounded-glossy-black/fire1.png");*/
 }
 
 div.card-upgrade {
+  background-color: #CED434;
+  color: #000;
+  padding-top: 50px;
+}
+
+div.player-upgrade {
   background-color: #AEB404;
-  color: #fff;
-  /*background-image: url("../img/rounded-glossy-black/star8-sc48.png");*/
-  background-image: url("../img/rounded-glossy-black/magic-wand.png");
-  background-position: 31px 63px;
+  color: #000;
+  padding-top: 50px;
+}
+
+div.card-power {
+}
+
+div.booster {
+  background-color: #DC88FA;
+  color: #000;
+  padding-top: 50px;
 }
 
 div.card-booster {
-  background-color: #AC58FA;
-  color: #fff;
-  background-image: url("../img/rounded-glossy-black/chest.png");
-  background-position: 29px 63px;
+  background-color: #DC88FA;
 }
 
 div.card-dominated {
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 div.card-selected {

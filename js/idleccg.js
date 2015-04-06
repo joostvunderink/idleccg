@@ -233,6 +233,11 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
     $scope.PAGE_SECTION_PLAYER_DECK = PAGE_SECTION_PLAYER_DECK;
     $scope.PAGE_SECTION_PLAYER_COLLECTION = PAGE_SECTION_PLAYER_COLLECTION;
+    $scope.ITEM_BOOSTER        = ITEM_BOOSTER;
+    $scope.ITEM_CARD           = ITEM_CARD;
+    $scope.ITEM_CARD_UPGRADE   = ITEM_CARD_UPGRADE;
+    $scope.ITEM_PLAYER_UPGRADE = ITEM_PLAYER_UPGRADE;
+
 
     $scope.boosterPrices = {};
     for (var i = 1; i < 10; i++) {

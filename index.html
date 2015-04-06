@@ -205,8 +205,50 @@
                         <div ng-repeat="card in player.collection.cards" 
                              ng-class="'col-sm-1 panel panel-primary card ' + card.cssClass + ' ' + card.selectedClass + ' ' + card.dominatedClass"
                              ng-click="cardClicked(PAGE_SECTION_PLAYER_COLLECTION, card)">
-                            <span ng-show="card.type == 'card'">{{ card.text }}<br>{{card.damage}}</span>
-                            <span ng-show="card.type != 'card'">{{ card.text }}</span>
+
+                            <div ng-if="card.type === ITEM_CARD">
+                                <div class="card-top">
+                                    <img class="card-element" ng-if="card.element.name === 'Water'" src="img/rounded-glossy-black/icon_131.png" width="16" height="16">
+                                    <img class="card-element" ng-if="card.element.name === 'Air'" src="img/rounded-glossy-black/lightning2-sc48.png" width="16" height="16">
+                                    <img class="card-element" ng-if="card.element.name === 'Earth'" src="img/rounded-glossy-black/leaf7-sc44.png" width="16" height="16">
+                                    <img class="card-element" ng-if="card.element.name === 'Fire'" src="img/rounded-glossy-black/fire1.png" width="16" height="16">
+                                    <span class="card-name">{{ card.name }}</span>
+                                </div>
+                                <div class="card-image">
+                                    <img ng-src="img/card/{{card.imageFile}}" height="78" width="108">
+                                </div>
+                                <div class="card-bottom">
+                                    <div class="card-power">
+                                        <img src="img/icon-fist-2.png" height="16" width="16" /> {{ card.power }}
+                                    </div>
+                                    <div class="card-damage">
+                                        <img src="img/icon-sword.png" height="16" width="16" /> {{ card.damage }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-if="card.type === ITEM_CARD_UPGRADE">
+                                <div class="upgrade-power" ng-if="card.power > 0">
+                                    <img src="img/icon-fist-2.png" height="32" width="32" />
+                                    <br>+ {{ card.power }}
+                                </div>
+                                <div class="upgrade-damage" ng-if="card.damage > 0">
+                                    <img src="img/icon-sword.png" height="32" width="32" />
+                                    <br>+ {{ card.damage }}
+                                </div>
+                            </div>
+                            <div ng-if="card.type === ITEM_PLAYER_UPGRADE">
+                                <div class="player-upgrade-health" ng-if="card.health > 0">
+                                    <img src="img/icon-heart.png" height="32" width="32" />
+                                    <br>+ {{ card.health }}
+                                </div>
+                            </div>
+                            <div ng-if="card.type === ITEM_BOOSTER">
+                                <div class="booster" ng-if="card.level > 0">
+                                    <img src="img/icon-chest.png" height="32" width="32" />
+                                    <br>{{ card.level }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
