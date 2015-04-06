@@ -18,6 +18,7 @@ div.container {
     background-position: 33px 63px;
     background-repeat: no-repeat;
     background-blend-mode: overlay;
+    border-color: #aaaaaa;
     height: 180px;
     width: 120px;
 }
