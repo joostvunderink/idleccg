@@ -434,9 +434,9 @@ function initOpponents($scope) {
       deck: new Deck(),
       collection: createOpponentCollection({
         collectionSize: 8,
-        powerAverage: 2*i,
+        powerAverage: 2 * Math.pow(1.8, i),
         powerStdDev: i+1,
-        damageAverage: i,
+        damageAverage: Math.sqrt(2 * Math.pow(1.8, i)),
         damageStdDev: i/3+1,
       }),
       number: i+1,
