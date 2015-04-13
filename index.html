@@ -67,7 +67,7 @@
                     <button ng-click="sellSelectedCard()" ng-show="cardSelectedInCollection && cardSelectedInCollection.type == 'card'">Sell selected card</button>
 
                     <span ng-repeat="index in boosterIndexes">
-                        <button ng-show="gold >= boosterPrices[index]" 
+                        <button class="btn btn-xs boosterBtn" ng-show="boosterShown(index)" ng-disabled="boosterDisabled(index)"
                             ng-click="buyBooster(index)">Booster {{ index }} ({{ boosterPrices[index] }} gold)</button>
                     </span>
                 </div>
@@ -77,7 +77,7 @@
                     Log
                 </div>
                 <div class="panel-body">
-                    <p class="logline" ng-repeat="l in log track by $index">{{ l.time }} <em>{{ l.text }}</em></p>
+                    <p class="logline" ng-repeat="l in log track by $index">{{ l.time }} <em>{{ l.text }}</em> ({{l.logDifTime}}s)</p>
                 </div>
             </div>
         </div>
@@ -111,10 +111,10 @@
                                     <img ng-src="img/card/{{card.imageFile}}" height="78" width="108">
                                 </div>
                                 <div class="card-bottom">
-                                    <div class="card-power">
+                                    <div class="card-power" ng-show="card.power > 0">
                                         <img src="img/icon-fist-2.png" height="16" width="16" /> {{ card.power }}
                                     </div>
-                                    <div class="card-damage">
+                                    <div class="card-damage" ng-show="card.damage > 0">
                                         <img src="img/icon-sword.png" height="16" width="16" /> {{ card.damage }}
                                     </div>
                                 </div>
@@ -151,10 +151,10 @@
                                     <img ng-src="img/card/{{card.imageFile}}" height="78" width="108">
                                 </div>
                                 <div class="card-bottom">
-                                    <div class="card-power">
+                                    <div class="card-power" ng-show="card.power > 0">
                                         <img src="img/icon-fist-2.png" height="16" width="16" /> {{ card.power }}
                                     </div>
-                                    <div class="card-damage">
+                                    <div class="card-damage" ng-show="card.damage > 0">
                                         <img src="img/icon-sword.png" height="16" width="16" /> {{ card.damage }}
                                     </div>
                                 </div>
@@ -198,10 +198,10 @@
                                     <img ng-src="img/card/{{card.imageFile}}" height="78" width="108">
                                 </div>
                                 <div class="card-bottom">
-                                    <div class="card-power">
+                                    <div class="card-power" ng-show="card.power > 0">
                                         <img src="img/icon-fist-2.png" height="16" width="16" /> {{ card.power }}
                                     </div>
-                                    <div class="card-damage">
+                                    <div class="card-damage" ng-show="card.damage > 0">
                                         <img src="img/icon-sword.png" height="16" width="16" /> {{ card.damage }}
                                     </div>
                                 </div>

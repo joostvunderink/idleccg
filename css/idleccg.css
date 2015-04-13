@@ -152,3 +152,7 @@ div.dies {
     animation-direction: alternate;
     animation-timing-function: ease-in;
 }
+
+.boosterBtn {
+    margin-bottom: 1px;
+}

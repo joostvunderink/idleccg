@@ -23,7 +23,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     if ($scope.timeRunning) {
       updateStatus($scope)
     }
-  }, 378);
+  }, 300);
 
   $scope.toggleTimeRunning = function() {
     $scope.timeRunning = !$scope.timeRunning;
@@ -41,16 +41,19 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
   $scope.addLogLine = function(text) {
     var now = new Date();
+    var logDifTime = parseInt(((now - $scope.previousLogTime) + 999) / 1000);
     var nowTime = now.toISOString().slice(11,19);
     var logLine = {
       text: text,
       date: now,
-      time: nowTime
+      time: nowTime,
+      logDifTime: logDifTime
     };
     $scope.log.unshift(logLine);
     if ($scope.log.length > $scope.maxLogLines) {
       $scope.log.pop();
     }
+    $scope.previousLogTime = now;
   };
 
   $scope.buyBooster = function(level) {
@@ -61,6 +64,9 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     });
     $scope.player.collection.addCard(booster);
     $scope.addLogLine("Bought booster " + level + ".");
+    if (level >= $scope.unlockedBoosterLevel) {
+      $scope.unlockedBoosterLevel = level + 1;
+    }
   };
 
   $scope.sellSelectedCard = function() {
@@ -229,7 +235,7 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   };
 
   $scope.initApp = function() {
-    $scope.gold = 0;
+    $scope.gold = 5;
 
     $scope.PAGE_SECTION_PLAYER_DECK = PAGE_SECTION_PLAYER_DECK;
     $scope.PAGE_SECTION_PLAYER_COLLECTION = PAGE_SECTION_PLAYER_COLLECTION;
@@ -264,6 +270,9 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     $scope.afterGamePauze = 0;
     $scope.playerMessage = "";
     $scope.opponentMessage = "";
+    $scope.previousLogTime = new Date();
+
+    $scope.unlockedBoosterLevel = 1;
 
     $scope.gameData = {
       startTime         : new Date().getTime(),
@@ -286,6 +295,14 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
     $scope.currentLocation = {
       level: 1
     };
+
+    $scope.boosterShown = function(index) {
+      return index <= $scope.unlockedBoosterLevel;
+    }
+
+    $scope.boosterDisabled = function(index) {
+      return $scope.gold < $scope.boosterPrices[index];
+    }
 
     initOpponents($scope);
     $scope.setOpponent();
@@ -330,7 +347,7 @@ function processGameTurn($scope) {
   $scope.gameData.totalTurns += 1;
 
   function determineDamage(max) {
-    var damage = Math.floor(Math.random() * max) + 1;
+    var damage = Math.floor(Math.random() * (max+1)) + 1;
     return damage;
   }
 

@@ -100,11 +100,11 @@ function createInitialPlayerCollection() {
   });
   collection.addCard(playerUpgradeCard);
 
-  var booster = ItemFactory({
-    type: ITEM_BOOSTER,
-    level: 1,
-  });
-  collection.addCard(booster);
+  //var booster = ItemFactory({
+  //  type: ITEM_BOOSTER,
+  //  level: 1,
+  //});
+  //collection.addCard(booster);
 
   return collection;
 }
