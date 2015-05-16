@@ -235,6 +235,10 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
   };
 
   $scope.initApp = function() {
+    // debug/dev options
+    $scope.fastForwardNum = 50;
+
+
     $scope.gold = 5;
 
     $scope.PAGE_SECTION_PLAYER_DECK = PAGE_SECTION_PLAYER_DECK;
@@ -298,11 +302,30 @@ cardGameApp.controller('gameCtrl', ['$scope', '$interval', 'lodash', function($s
 
     $scope.boosterShown = function(index) {
       return index <= $scope.unlockedBoosterLevel;
-    }
+    };
 
     $scope.boosterDisabled = function(index) {
       return $scope.gold < $scope.boosterPrices[index];
-    }
+    };
+
+    $scope.doFastForward = function() {
+      var currentTimeRunning = $scope.timeRunning;
+
+      $scope.timeRunning = false;
+      var numGamesAtStart = $scope.gameData.totalGames;
+      var numWonAtStart   = $scope.gameData.totalWins;
+
+      while ($scope.gameData.totalGames - numGamesAtStart < $scope.fastForwardNum) {
+        processGameTurn($scope);
+      }
+
+      // Restore the old value of timeRunning.
+      $scope.timeRunning = currentTimeRunning;
+      var gamesWon = $scope.gameData.totalWins - numWonAtStart;
+      var percentWon = parseInt(100 * gamesWon / $scope.fastForwardNum);
+      $scope.addLogLine("Ffw " + $scope.fastForwardNum + " games.");
+      $scope.addLogLine("Won " + gamesWon + " games (" + percentWon + "%).");
+    };
 
     initOpponents($scope);
     $scope.setOpponent();
