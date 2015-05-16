@@ -11,10 +11,16 @@
     <img ng-src="img/card/{{card.imageFile}}" height="78" width="108">
 </div>
 <div class="card-bottom">
-    <div class="card-power">
-        <img src="img/icon-fist-2.png" height="16" width="16" /> {{ card.power }}
-    </div>
-    <div class="card-damage">
-        <img src="img/icon-sword.png" height="16" width="16" /> {{ card.damage }}
+    <div class="row">
+        <div class="card-power col-sm-6">
+            <div ng-show="card.power > 0">
+                <img src="img/icon-fist-2.png" height="16" width="16" /> {{ card.power }}
+            </div>
+        </div>
+        <div class="card-damage col-sm-6">
+            <div ng-show="card.damage > 0">
+                <img src="img/icon-sword.png" height="16" width="16" /> {{ card.damage }}
+            </div>
+        </div>
     </div>
 </div>
